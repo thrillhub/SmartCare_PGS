@@ -40,3 +40,5 @@ next-env.d.ts
 
 # Firebase service account
 src/app/firebaseserviceAccount.json
+.env
+firebaseServiceAccount.json
