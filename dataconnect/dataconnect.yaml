@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "PGS_Final-Project"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "PGS_Final-Project-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

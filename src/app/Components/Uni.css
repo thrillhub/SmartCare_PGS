@@ -1,0 +1,89 @@
+.swiper-button-prev:after, .swiper-button-next:after{
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+    color: #61a3f8;
+}
+
+.swiper-pagination-bullet-active{
+    width: 20px;
+    border: transparent;
+    border-radius: 20px;
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: var(--swiper-pagination-bottom, 0px);
+}
+
+.swiper {
+    height: 450px;
+}
+
+.secswipe{
+    max-height: 100px;
+}
+
+.underline {
+  position: absolute;
+  bottom: -6px; 
+  left: 0;
+  right: 0;
+  height: 3px; 
+  background-color: transparent;
+}
+
+.text-center:hover .underline,
+.text-center.hover .underline,
+.text-center.active .underline {
+  background-color: #61a3f8; 
+}
+
+.text-center:hover .icon,
+.text-center.hover .icon,
+.text-center.active .icon,
+.text-center:hover .text,
+.text-center.hover .text,
+.text-center.active .text {
+  color: #61a3f8; 
+  transition: color 0.5s ease;
+}
+
+.underline-active {
+  background-color: #61a3f8; 
+}
+
+.underline-hover {
+  background-color: transparent; 
+}
+
+.swiper-slide-content {
+  filter: brightness(0.5);
+  opacity: 0.4;
+  transition: all 0.5s ease-in-out;
+}
+
+.swiper-slide-active .swiper-slide-content {
+  filter: brightness(1);
+  opacity: 1;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transform: scale(1.1); 
+}
+
+.swiper-slide-custom-active h4 {
+  color: #6A99F0; 
+}
+
+.swiper-slide-custom-active p {
+  color: #4b5563; 
+}
+
+.mySwipertwo{
+  height: 370px;
+}
+
+.foot a:hover{
+  color: #61a3f8;
+  transition: color 0.2s ease-in-out 0.5s;
+}
