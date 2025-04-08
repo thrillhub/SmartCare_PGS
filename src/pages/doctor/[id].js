@@ -546,7 +546,7 @@ const styles = {
   checkbox: { marginRight: "10px" },
   saveButton: { backgroundColor: "#3b82f6", color: "white", padding: "12px 20px", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "16px", fontWeight: "500", marginTop: "20px", transition: "background-color 0.3s", ":hover": { backgroundColor: "#2563eb" } },
   errorMessage: { backgroundColor: "#fee2e2", color: "#b91c1c", padding: "10px 15px", borderRadius: "4px", marginBottom: "20px" },
-  successMessage: { backgroundColor: "#dcfce7", color: "#166534", padding: "10px 15px", borderRadius: "4px", marginBottom: "20px" },
+  successMessage: { backgroundColor: "#dcfce7", color: "#166534", padding: "10px 15px", borderRadius: "5px", marginBottom: "20px" },
 };
 
 export default DoctorProfilePage;
