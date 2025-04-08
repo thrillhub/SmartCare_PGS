@@ -130,7 +130,7 @@ function DoctorProfilePage() {
     });
 
     return () => unsubscribe();
-  }, [id, currentDateTime]);
+  }, [id]);
 
   const handleChatOpen = (patient) => {
     setSelectedPatient(patient);
