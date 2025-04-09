@@ -1,252 +1,253 @@
 import React, { useEffect, useRef, useState } from "react";
-import { createLocalVideoTrack, createLocalAudioTrack, connect } from "twilio-video";
-import { FiMic, FiMicOff, FiPhoneOff, FiVideo, FiVideoOff } from "react-icons/fi";
+import {
+  createLocalVideoTrack,
+  createLocalAudioTrack,
+  connect,
+} from "twilio-video";
+import {
+  FiMic,
+  FiMicOff,
+  FiPhoneOff,
+  FiVideo,
+  FiVideoOff,
+} from "react-icons/fi";
 
-// Enhanced token caching with expiration
-const tokenCache = {
-  _cache: {},
-  get(key) {
-    const item = this._cache[key];
-    if (item && Date.now() < item.expires) {
-      return item.token;
-    }
-    return null;
-  },
-  set(key, token, ttl = 3600000) { // 1 hour TTL
-    this._cache[key] = { token, expires: Date.now() + ttl };
-  },
-  clear() {
-    this._cache = {};
-  }
-};
-
-const VideoCallModal = ({ 
-  isOpen, 
-  onClose, 
-  currentUser, 
-  recipientUser, 
-  appointmentId 
-}) => {
+const VideoCallModal = ({ isOpen, onClose, currentUser, recipientUser, appointmentId }) => {
   const localVideoRef = useRef(null);
-  const remoteVideoContainerRef = useRef(null);
-  const roomRef = useRef(null);
-  const localTracksRef = useRef([]);
+  const remoteVideoRef = useRef(null);
+  const remoteAudioRef = useRef(null);
+  const [room, setRoom] = useState(null);
+  const [localTracks, setLocalTracks] = useState([]);
+  const [remoteTracks, setRemoteTracks] = useState([]);
   const [isMuted, setIsMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [status, setStatus] = useState("Initializing...");
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  // Enhanced token fetching with better error handling
   const getToken = async () => {
-    const cacheKey = `${currentUser.id}-${recipientUser.id}-${appointmentId}`;
-    const cachedToken = tokenCache.get(cacheKey);
-    
-    if (cachedToken) {
-      return cachedToken;
-    }
-
     try {
       setStatus("Fetching token...");
       const response = await fetch(
         `/api/twilio/token?identity=${encodeURIComponent(currentUser.id)}&appointmentId=${encodeURIComponent(appointmentId)}`
       );
-      
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(
-          errorData.message || `Token request failed with status ${response.status}`
-        );
-      }
+
+      if (!response.ok) throw new Error(`Token request failed: ${response.status}`);
 
       const data = await response.json();
-      
-      if (!data.token) {
-        throw new Error("Invalid token received");
-      }
-
-      tokenCache.set(cacheKey, data.token);
       return data.token;
-    } catch (error) {
-      console.error("Token request failed:", error);
-      setError(`Failed to get access token: ${error.message}`);
-      throw error;
+    } catch (err) {
+      setError(`Failed to get access token: ${err.message}`);
+      throw err;
     }
   };
 
-  // Enhanced room connection with better state management
   const connectToRoom = async (token) => {
     try {
       setStatus("Connecting...");
       setError(null);
-      
-      // Cleanup any existing connections
-      if (roomRef.current) {
-        roomRef.current.disconnect();
-        roomRef.current = null;
+
+      // Clean up any existing connection
+      if (room) {
+        room.disconnect();
+        setRoom(null);
       }
-      
-      cleanupLocalTracks();
 
-      // Create local tracks
-      const videoTrack = await createLocalVideoTrack({
-        width: 640,
-        height: 480,
-        frameRate: 24
-      }).catch(err => {
-        console.warn("Failed to create video track:", err);
-        return null;
-      });
+      // Create new local tracks
+      const tracks = await Promise.all([
+        !isVideoOff ? createLocalVideoTrack().catch(() => null) : null,
+        !isMuted ? createLocalAudioTrack().catch(() => null) : null,
+      ]).then(tracks => tracks.filter(Boolean));
 
-      const audioTrack = await createLocalAudioTrack().catch(err => {
-        console.warn("Failed to create audio track:", err);
-        return null;
-      });
-
-      const tracks = [videoTrack, audioTrack].filter(Boolean);
-      localTracksRef.current = tracks;
+      setLocalTracks(tracks);
 
       // Attach local video if available
-      if (videoTrack && localVideoRef.current) {
-        localVideoRef.current.innerHTML = "";
-        localVideoRef.current.appendChild(videoTrack.attach());
+      const localVideoTrack = tracks.find(t => t.kind === "video");
+      if (localVideoTrack && localVideoRef.current) {
+        localVideoRef.current.innerHTML = '';
+        const localElement = localVideoTrack.attach();
+        localElement.style.width = "100%";
+        localElement.style.height = "100%";
+        localVideoRef.current.appendChild(localElement);
       }
 
-      // Connect to room
-      const room = await connect(token, {
+      const newRoom = await connect(token, {
         name: `appointment-${appointmentId}`,
         tracks,
-        bandwidthProfile: {
-          video: {
-            mode: "collaboration",
-            dominantSpeakerPriority: "standard",
-            renderDimensions: {
-              high: { width: 1280, height: 720 },
-              standard: { width: 640, height: 480 },
-              low: { width: 320, height: 240 }
-            }
-          }
-        },
         dominantSpeaker: true,
-        networkQuality: { local: 1, remote: 1 }
+        networkQuality: { local: 1, remote: 1 },
+        audio: { autoGainControl: true, echoCancellation: true, noiseSuppression: true }
       });
 
-      roomRef.current = room;
+      setRoom(newRoom);
       setStatus("Connected");
 
-      // Handle participants
-      room.participants.forEach(participantConnected);
-      room.on("participantConnected", participantConnected);
-      room.on("participantDisconnected", participantDisconnected);
-      room.on("disconnected", handleRoomDisconnect);
-
-    } catch (error) {
-      console.error("Connection failed:", error);
+      // Handle remote participants
+      newRoom.participants.forEach(participantConnected);
+      newRoom.on("participantConnected", participantConnected);
+      newRoom.on("participantDisconnected", participantDisconnected);
+      newRoom.once("disconnected", () => {
+        cleanup();
+        setStatus("Disconnected");
+      });
+    } catch (err) {
+      console.error("Error connecting to room:", err);
+      setError(err.message || "Failed to connect to video room");
       setStatus("Connection failed");
-      setError(error.message);
-      throw error;
+      cleanup();
     }
   };
 
-  // Participant management
   const participantConnected = (participant) => {
     setStatus(`${participant.identity} joined`);
-    
-    participant.tracks.forEach(track => {
-      if (track.track) {
-        trackPublished(track, participant);
+
+    participant.tracks.forEach(publication => {
+      if (publication.track) {
+        trackSubscribed(publication.track);
       }
+      publication.on('subscribed', trackSubscribed);
+      publication.on('unsubscribed', trackUnsubscribed);
     });
 
-    participant.on("trackPublished", track => trackPublished(track, participant));
-  };
-
-  const trackPublished = (publication, participant) => {
-    if (publication.isSubscribed) {
-      trackSubscribed(publication.track, participant);
-    }
-    
-    publication.on("subscribed", track => trackSubscribed(track, participant));
-    publication.on("unsubscribed", trackUnsubscribed);
-  };
-
-  const trackSubscribed = (track, participant) => {
-    if (!remoteVideoContainerRef.current) return;
-    
-    const element = track.attach();
-    element.style.width = "100%";
-    element.style.height = "100%";
-    element.style.objectFit = "cover";
-    
-    const container = document.createElement("div");
-    container.id = `participant-${participant.sid}`;
-    container.style.width = "100%";
-    container.style.height = "100%";
-    container.appendChild(element);
-    
-    remoteVideoContainerRef.current.innerHTML = "";
-    remoteVideoContainerRef.current.appendChild(container);
-  };
-
-  const trackUnsubscribed = (track) => {
-    track.detach().forEach(element => element.remove());
+    participant.on("trackSubscribed", trackSubscribed);
+    participant.on("trackUnsubscribed", trackUnsubscribed);
   };
 
   const participantDisconnected = (participant) => {
     setStatus(`${participant.identity} left`);
-    if (remoteVideoContainerRef.current) {
-      const element = document.getElementById(`participant-${participant.sid}`);
-      if (element) element.remove();
+    setRemoteTracks([]);
+    if (remoteVideoRef.current) remoteVideoRef.current.innerHTML = '';
+    if (remoteAudioRef.current) remoteAudioRef.current.innerHTML = '';
+  };
+
+  const trackSubscribed = (track) => {
+    setRemoteTracks(prev => [...prev, track]);
+    
+    if (track.kind === 'video' && remoteVideoRef.current) {
+      remoteVideoRef.current.innerHTML = '';
+      const element = track.attach();
+      element.style.width = "100%";
+      element.style.height = "100%";
+      remoteVideoRef.current.appendChild(element);
+    } else if (track.kind === 'audio') {
+      // Create a dedicated audio element for remote audio
+      if (!remoteAudioRef.current) {
+        remoteAudioRef.current = document.createElement('audio');
+        remoteAudioRef.current.autoplay = true;
+        document.body.appendChild(remoteAudioRef.current);
+      }
+      track.attach(remoteAudioRef.current);
     }
   };
 
-  const handleRoomDisconnect = () => {
-    setStatus("Disconnected");
-    cleanup();
+  const trackUnsubscribed = (track) => {
+    track.detach().forEach(el => el.remove());
+    setRemoteTracks(prev => prev.filter(t => t !== track));
+    
+    if (track.kind === 'audio' && remoteAudioRef.current) {
+      remoteAudioRef.current.srcObject = null;
+    }
   };
 
   const cleanup = () => {
-    if (roomRef.current) {
-      roomRef.current.disconnect();
-      roomRef.current = null;
-    }
-    
-    cleanupLocalTracks();
-    
-    if (localVideoRef.current) {
-      localVideoRef.current.innerHTML = "";
-    }
-    
-    if (remoteVideoContainerRef.current) {
-      remoteVideoContainerRef.current.innerHTML = "";
-    }
-  };
-
-  const cleanupLocalTracks = () => {
-    localTracksRef.current.forEach(track => {
-      track.stop();
-      track.detach().forEach(element => element.remove());
+    // Clean up remote tracks
+    remoteTracks.forEach(track => {
+      track.detach().forEach(el => el.remove());
     });
-    localTracksRef.current = [];
+    setRemoteTracks([]);
+
+    // Clean up local tracks
+    localTracks.forEach(track => {
+      if (track.stop) track.stop();
+      track.detach().forEach(el => el.remove());
+    });
+    setLocalTracks([]);
+
+    // Clean up audio element
+    if (remoteAudioRef.current) {
+      remoteAudioRef.current.srcObject = null;
+      remoteAudioRef.current.remove();
+      remoteAudioRef.current = null;
+    }
+
+    // Disconnect from room
+    if (room) {
+      room.disconnect();
+      setRoom(null);
+    }
+
+    // Clear video elements
+    if (localVideoRef.current) localVideoRef.current.innerHTML = "";
+    if (remoteVideoRef.current) remoteVideoRef.current.innerHTML = "";
   };
 
-  // Control functions
-  const toggleMute = () => {
-    localTracksRef.current.forEach(track => {
-      if (track.kind === "audio") {
-        track.isEnabled ? track.disable() : track.enable();
+  const toggleMute = async () => {
+    const audioTrack = localTracks.find(t => t.kind === "audio");
+    
+    if (audioTrack) {
+      // If we have an existing audio track, toggle it
+      if (audioTrack.isEnabled) {
+        audioTrack.disable();
+        setIsMuted(true);
+      } else {
+        audioTrack.enable();
+        setIsMuted(false);
       }
-    });
-    setIsMuted(!isMuted);
+    } else {
+      // If no audio track exists (or was muted during initialization), create one
+      try {
+        const newAudioTrack = await createLocalAudioTrack();
+        setLocalTracks(prev => [...prev.filter(t => t.kind !== "audio"), newAudioTrack]);
+        
+        if (room) {
+          room.localParticipant.publishTrack(newAudioTrack);
+        }
+        
+        setIsMuted(false);
+      } catch (err) {
+        console.error("Error creating audio track:", err);
+        setError("Failed to unmute microphone");
+      }
+    }
   };
 
-  const toggleVideo = () => {
-    localTracksRef.current.forEach(track => {
-      if (track.kind === "video") {
-        track.isEnabled ? track.disable() : track.enable();
+  const toggleVideo = async () => {
+    const videoTrack = localTracks.find(t => t.kind === "video");
+    
+    if (videoTrack) {
+      // If we have an existing video track, toggle it
+      if (videoTrack.isEnabled) {
+        videoTrack.disable();
+        setIsVideoOff(true);
+      } else {
+        videoTrack.enable();
+        setIsVideoOff(false);
       }
-    });
-    setIsVideoOff(!isVideoOff);
+    } else {
+      // If no video track exists, create one
+      try {
+        const newVideoTrack = await createLocalVideoTrack();
+        setLocalTracks(prev => [...prev.filter(t => t.kind !== "video"), newVideoTrack]);
+        
+        if (room) {
+          room.localParticipant.publishTrack(newVideoTrack);
+        }
+        
+        // Attach to local video element
+        if (localVideoRef.current) {
+          localVideoRef.current.innerHTML = '';
+          const element = newVideoTrack.attach();
+          element.style.width = "100%";
+          element.style.height = "100%";
+          localVideoRef.current.appendChild(element);
+        }
+        
+        setIsVideoOff(false);
+      } catch (err) {
+        console.error("Error creating video track:", err);
+        setError("Failed to enable camera");
+      }
+    }
   };
 
   const endCall = () => {
@@ -254,23 +255,21 @@ const VideoCallModal = ({
     onClose();
   };
 
-  // Effect for managing connection
   useEffect(() => {
     if (!isOpen) {
       cleanup();
       return;
     }
 
-    let isMounted = true;
-
+    let mounted = true;
     const setupCall = async () => {
       try {
         const token = await getToken();
-        if (isMounted) await connectToRoom(token);
-      } catch (error) {
-        if (isMounted) {
-          setError(error.message);
-          setTimeout(() => setRetryCount(c => c + 1), 5000);
+        if (mounted) await connectToRoom(token);
+      } catch (err) {
+        if (mounted) {
+          setError(err.message);
+          setTimeout(() => setRetryCount(r => r + 1), 5000);
         }
       }
     };
@@ -278,7 +277,7 @@ const VideoCallModal = ({
     setupCall();
 
     return () => {
-      isMounted = false;
+      mounted = false;
       cleanup();
     };
   }, [isOpen, retryCount]);
@@ -297,47 +296,50 @@ const VideoCallModal = ({
         </div>
 
         <div style={styles.videoContainer}>
-          <div ref={remoteVideoContainerRef} style={styles.remoteVideo}>
-            {status === "Connected" ? "Waiting for video..." : status}
+          <div ref={remoteVideoRef} style={styles.remoteVideo}>
+            {status === "Connected" && !remoteTracks.some(t => t.kind === 'video')
+              ? "Waiting for participant to enable video..."
+              : status}
           </div>
-          
-          <div ref={localVideoRef} style={{
-            ...styles.localVideo,
-            backgroundColor: isVideoOff ? "#333" : "#222"
-          }}>
-            {isVideoOff ? "Your camera is off" : "Your camera"}
+
+          <div
+            ref={localVideoRef}
+            style={{
+              ...styles.localVideo,
+              backgroundColor: isVideoOff ? "#333" : "#222",
+              display: isVideoOff ? 'flex' : 'block',
+            }}
+          >
+            {isVideoOff && "Your camera is off"}
           </div>
         </div>
 
         <div style={styles.controls}>
-          <button 
+          <button
             onClick={toggleMute}
             style={{
               ...styles.controlButton,
-              backgroundColor: isMuted ? "#ff4d4d" : "#444"
+              backgroundColor: isMuted ? "#ff4d4d" : "#444",
             }}
             aria-label={isMuted ? "Unmute" : "Mute"}
           >
             {isMuted ? <FiMicOff size={20} /> : <FiMic size={20} />}
           </button>
 
-          <button 
+          <button
             onClick={toggleVideo}
             style={{
               ...styles.controlButton,
-              backgroundColor: isVideoOff ? "#ff4d4d" : "#444"
+              backgroundColor: isVideoOff ? "#ff4d4d" : "#444",
             }}
             aria-label={isVideoOff ? "Turn on camera" : "Turn off camera"}
           >
             {isVideoOff ? <FiVideoOff size={20} /> : <FiVideo size={20} />}
           </button>
 
-          <button 
+          <button
             onClick={endCall}
-            style={{
-              ...styles.controlButton,
-              backgroundColor: "#ff4d4d"
-            }}
+            style={{ ...styles.controlButton, backgroundColor: "#ff4d4d" }}
             aria-label="End call"
           >
             <FiPhoneOff size={20} />
@@ -359,7 +361,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1000
+    zIndex: 1000,
   },
   modalContent: {
     width: "90%",
@@ -367,29 +369,29 @@ const styles = {
     backgroundColor: "#1e1e1e",
     borderRadius: "12px",
     padding: "20px",
-    color: "white"
+    color: "white",
   },
   header: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: "20px"
+    marginBottom: "20px",
   },
   status: {
     fontSize: "14px",
-    color: "#aaa"
+    color: "#aaa",
   },
   error: {
     color: "#ff6b6b",
     fontSize: "13px",
-    marginTop: "5px"
+    marginTop: "5px",
   },
   videoContainer: {
     display: "flex",
     position: "relative",
     height: "60vh",
     marginBottom: "20px",
-    gap: "20px"
+    gap: "20px",
   },
   remoteVideo: {
     flex: 1,
@@ -399,7 +401,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    color: "#aaa"
+    color: "#aaa",
   },
   localVideo: {
     position: "absolute",
@@ -414,12 +416,12 @@ const styles = {
     overflow: "hidden",
     color: "#aaa",
     minWidth: "200px",
-    minHeight: "150px"
+    minHeight: "150px",
   },
   controls: {
     display: "flex",
     justifyContent: "center",
-    gap: "20px"
+    gap: "20px",
   },
   controlButton: {
     width: "50px",
@@ -431,8 +433,8 @@ const styles = {
     justifyContent: "center",
     cursor: "pointer",
     color: "white",
-    transition: "all 0.2s"
-  }
+    transition: "all 0.2s",
+  },
 };
 
 export default VideoCallModal;

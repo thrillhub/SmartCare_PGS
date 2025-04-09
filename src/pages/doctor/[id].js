@@ -7,6 +7,7 @@ import Chat from "../../app/Components/Chat";
 import UnreadBadge from "../../app/Components/UnreadBadge";
 import ChatModal from "../../app/Components/ChatModal";
 
+
 function DoctorProfilePage() {
   const router = useRouter();
   const { id } = router.query;
@@ -19,6 +20,7 @@ function DoctorProfilePage() {
   const [chatOpen, setChatOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [unreadCounts, setUnreadCounts] = useState({});
+  
 
   // Settings state
   const [editMode, setEditMode] = useState(false);
@@ -476,6 +478,8 @@ function DoctorProfilePage() {
           />
         </ChatModal>
       )}
+      <div id="local-video"></div>
+      <div id="remote-video"></div>
     </div>
   );
 }
@@ -546,7 +550,7 @@ const styles = {
   checkbox: { marginRight: "10px" },
   saveButton: { backgroundColor: "#3b82f6", color: "white", padding: "12px 20px", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "16px", fontWeight: "500", marginTop: "20px", transition: "background-color 0.3s", ":hover": { backgroundColor: "#2563eb" } },
   errorMessage: { backgroundColor: "#fee2e2", color: "#b91c1c", padding: "10px 15px", borderRadius: "4px", marginBottom: "20px" },
-  successMessage: { backgroundColor: "#dcfce7", color: "#166534", padding: "10px 15px", borderRadius: "5px", marginBottom: "20px" },
+  successMessage: { backgroundColor: "#dcfce7", color: "#166534", padding: "10px 15px", borderRadius: "4px", marginBottom: "20px" },
 };
 
 export default DoctorProfilePage;

@@ -269,7 +269,11 @@ export default function Chat({ appointmentId, currentUser, recipientUser }) {
             </div>
           </div>
           <div style={styles.headerActions}>
-            <button onClick={handleVideoCall} style={styles.videoCallButton}>
+          <button 
+              onClick={handleVideoCall} 
+              style={styles.videoCallButton}
+              disabled={!appointmentId} // Disable if no appointment ID
+            >
               <FontAwesomeIcon icon={faVideo} style={styles.videoIcon} />
               <span style={styles.buttonText}>Video Call</span>
             </button>
@@ -479,13 +483,14 @@ export default function Chat({ appointmentId, currentUser, recipientUser }) {
       </div>
 
       {videoCallOpen && (
-        <VideoCallModal
-          isOpen={videoCallOpen}
-          onClose={() => setVideoCallOpen(false)}
-          currentUser={currentUser}
-          recipientUser={recipientUser}
-        />
-      )}
+          <VideoCallModal
+            isOpen={videoCallOpen}
+            onClose={() => setVideoCallOpen(false)}
+            currentUser={currentUser}
+            recipientUser={recipientUser}
+            appointmentId={appointmentId}
+          />
+        )}
     </>
   );
 }
