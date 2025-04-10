@@ -1,118 +1,163 @@
 import React from "react";
+import Link from "next/link";
+
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <section className="bg-[#212529] py-8">
+    <footer className="bg-[#212529] py-8 text-sm">
       <div className="container mx-auto px-5 md:px-12">
-        <div className="flex flex-wrap md:flex-nowrap justify-between">
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h3 className="text-lg text-white mb-3">Site Menu</h3>
-            <ul className="text-[#ffffff8a] text-sm space-y-2 foot">
-              <li>
-                <a href="#">Company</a>
-              </li>
-              <li>
-                <a href="#">Our Client</a>
-              </li>
-              <li>
-                <a href="#">Career</a>
-              </li>
-              <li>
-                <a href="#">News & Events</a>
-              </li>
-              <li>
-                <a href="#">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h3 className="text-lg text-white mb-3">HMIS with EMR Solutions</h3>
-            <ul className="text-[#ffffff8a] text-sm space-y-2 foot">
-              <li>
-                <a href="#">Patient Management</a>
-              </li>
-              <li>
-                <a href="#">Materials (goods) Management</a>
-              </li>
-              <li>
-                <a href="#">Revenue Management</a>
-              </li>
-              <li>
-                <a href="#">Hospital Employee Management (HR Management)</a>
-              </li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h3 className="text-lg text-white mb-3">Info</h3>
-            <ul className="text-[#ffffff8a] text-sm space-y-2 foot">
-              <li>
-                <a href="#">FAQs</a>
-              </li>
-              <li>
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="#">Term & Conditions</a>
-              </li>
-            </ul>
-          </div>
+        {/* Main Footer Content */}
+        <div className="flex flex-wrap md:flex-nowrap justify-between gap-8">
+          {/* Site Menu */}
           <div className="w-full md:w-1/4">
-            <h3 className="text-lg text-white mb-3">Contact Us</h3>
-            <ul className="text-[#ffffff8a] text-sm space-y-2 foot">
+            <h3 className="text-lg text-white mb-4 font-medium">Site Menu</h3>
+            <ul className="text-[#ffffff8a] space-y-3">
+              {['Company', 'Our Client', 'Career', 'News & Events', 'Contact Us'].map((item) => (
+                <li key={item}>
+                  <a 
+                    href="#" 
+                    className="hover:text-white transition-colors duration-200 block"
+                    aria-label={`Navigate to ${item}`}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* HMIS Solutions */}
+          <div className="w-full md:w-1/4">
+            <h3 className="text-lg text-white mb-4 font-medium">HMIS with EMR Solutions</h3>
+            <ul className="text-[#ffffff8a] space-y-3">
+              {[
+                'Patient Management',
+                'Materials (goods) Management',
+                'Revenue Management',
+                'Hospital Employee Management (HR Management)'
+              ].map((item) => (
+                <li key={item}>
+                  <a 
+                    href="#" 
+                    className="hover:text-white transition-colors duration-200 block"
+                    aria-label={`Learn more about ${item}`}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Info */}
+          <div className="w-full md:w-1/4">
+            <h3 className="text-lg text-white mb-4 font-medium">Info</h3>
+            <ul className="text-[#ffffff8a] space-y-3">
               <li>
-                <a href="#">
-                  Imark Digital Pvt. Ltd. Dillibazar, Kathmandu, Nepal
+                <a 
+                  href="#" 
+                  className="hover:text-white transition-colors duration-200 block"
+                  aria-label="View FAQs"
+                >
+                  FAQs
                 </a>
               </li>
               <li>
-                <a href="#">
-                  <i className="bi bi-telephone-inbound pr-2"></i>+977 9852088004, 9802310817
-                </a>
+                <Link 
+                  href="/privacy-policy" 
+                  className="hover:text-white transition-colors duration-200 block"
+                  aria-label="View Terms & Conditions"
+                >
+                  Privacy & Policy
+                </Link>
               </li>
               <li>
-                <a href="#">
-                  <i className="bi bi-envelope-at pr-2"></i>info@danphehealth.com
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="bi bi-globe pr-2"></i>www.smartcare.com / www.smartcareconnect.com
-                </a>
+              <Link 
+                  href="/terms-condition" 
+                  className="hover:text-white transition-colors duration-200 block"
+                  aria-label="View Terms & Conditions"
+                >
+                  Terms & Conditions
+                </Link>
               </li>
             </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="w-full md:w-1/4">
+            <h3 className="text-lg text-white mb-4 font-medium">Contact Us</h3>
+            <address className="not-italic text-[#ffffff8a] space-y-3">
+              <p className="hover:text-white transition-colors duration-200">
+                SmartCare Connects Pvt. Ltd.<br />
+                Baneshwor, Kathmandu, Nepal
+              </p>
+              <p>
+                <a 
+                  href="tel:+9779852088004" 
+                  className="hover:text-white transition-colors duration-200 flex items-start"
+                  aria-label="Call us at +977 9852088004"
+                >
+                  <i className="bi bi-telephone-inbound pr-2 pt-1"></i>
+                  <span>+977 9869100969, 9815253061</span>
+                </a>
+              </p>
+              <p>
+                <a 
+                  href="mailto:info@smartcareconnects.com" 
+                  className="hover:text-white transition-colors duration-200 flex items-start"
+                  aria-label="Email us at info@smartcareconnects.com"
+                >
+                  <i className="bi bi-envelope-at pr-2 pt-1"></i>
+                  <span>info@smartcareconnects.com</span>
+                </a>
+              </p>
+              <p>
+                <a 
+                  href="https://www.smartcare.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors duration-200 flex items-start"
+                  aria-label="Visit our website"
+                >
+                  <i className="bi bi-globe pr-2 pt-1"></i>
+                  <span>www.smartcare.com / www.smartcareconnect.com</span>
+                </a>
+              </p>
+            </address>
           </div>
         </div>
-        <div className="text-white text-xs py-4 flex justify-between items-center border-t border-[#ffffff33] mt-8">
-          <div className="md:w-0 w-1/2">
-            <h4>Copyright 2024. All Rights Reserved.</h4>
-          </div>
-          <div>
-            <ul className="flex gap-4 md:mr-4 mr-6">
-              <li>
-                <a href="#">
-                  <i className="bi bi-facebook"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="bi bi-instagram"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="bi bi-linkedin"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="bi bi-twitter"></i>
-                </a>
-              </li>
+
+        {/* Footer Bottom */}
+        <div className="text-white py-6 flex flex-col md:flex-row justify-between items-center border-t border-[#ffffff33] mt-8">
+          <p className="mb-4 md:mb-0">
+            Copyright © {currentYear}. All Rights Reserved.
+          </p>
+          
+          <div className="social-links">
+            <ul className="flex gap-6">
+              {[
+                {icon: 'bi-facebook', label: 'Facebook'},
+                {icon: 'bi-instagram', label: 'Instagram'},
+                {icon: 'bi-linkedin', label: 'LinkedIn'},
+                {icon: 'bi-twitter', label: 'Twitter'}
+              ].map((social) => (
+                <li key={social.label}>
+                  <a 
+                    href="#" 
+                    className="text-xl hover:text-white text-[#ffffff8a] transition-colors duration-200"
+                    aria-label={`Visit our ${social.label} page`}
+                  >
+                    <i className={`bi ${social.icon}`}></i>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
       </div>
-    </section>
+    </footer>
   );
 }
 

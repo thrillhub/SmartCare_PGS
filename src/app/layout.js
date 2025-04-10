@@ -1,28 +1,29 @@
-// Mark this file as a Client Component
-"use client"; 
-
-import { Inter } from "next/font/google";
+"use client";
+import React from "react"; // Add this import
 import "./globals.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import FloatingButton from "./Components/FloatingButton";
-import { usePathname } from 'next/navigation'; // Import usePathname hook
-
-const inter = Inter({ subsets: ["latin"] });
+import { usePathname } from 'next/navigation';
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname(); // Get the current page path
-
-  // Define an array of routes where header and footer should not be shown
-  const noHeaderFooterPaths = ['/patient-login', '/patient-register', '/doctor-login', '/doctor-register', '/doctor-appointment',   '/chat-box', '/doctor-chat-box',  '/Patient-profile',  ];
-
-  // Check if the current path is in the noHeaderFooterPaths array
+  const pathname = usePathname();
+  const noHeaderFooterPaths = [
+    '/patient-login',
+    '/patient-register',
+    '/doctor-login',
+    '/doctor-register',
+    '/doctor-appointment',
+    '/chat-box',
+    '/doctor-chat-box',
+    '/Patient-profile'
+  ];
   const showHeaderFooter = !noHeaderFooterPaths.includes(pathname);
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="inter-font">
         {showHeaderFooter && <Header />}
         {children}
         {showHeaderFooter && <FloatingButton />}

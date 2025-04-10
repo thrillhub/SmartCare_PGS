@@ -138,6 +138,14 @@ const DoctorAppointmentForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handlePhoneNumberChange = (e) => {
+    // Ensure only numbers are entered and limit to 10 digits after +977
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    if (value.length <= 10) {
+      setFormData({ ...formData, phoneNumber: value });
+    }
+  };
+
   const handleModalClose = () => {
     setShowModal(false);
     if (modalData.success) {
@@ -167,6 +175,7 @@ const DoctorAppointmentForm = () => {
     
     const appointmentData = {
       ...formData,
+      phoneNumber: `+977${formData.phoneNumber}`, // Add country code before saving
       doctorId: selectedDoctor?.id || "",
       doctorEmail: selectedDoctor?.email || "",
       doctorPhoneNumber: selectedDoctor?.phoneNumber || "",
@@ -191,7 +200,7 @@ const DoctorAppointmentForm = () => {
             firstName: formData.firstName,
             lastName: formData.lastName,
             address: formData.address,
-            phoneNumber: formData.phoneNumber,
+            phoneNumber: `+977${formData.phoneNumber}`,
             email: formData.email,
             age: formData.age,
             gender: formData.gender,
@@ -231,21 +240,21 @@ const DoctorAppointmentForm = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4 md:p-8"
+        className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center"
       >
         <motion.div
           initial="offscreen"
           whileInView="onscreen"
           viewport={{ once: true, amount: 0.2 }}
           variants={cardVariants}
-          className="w-full max-w-5xl h-auto bg-white rounded-xl shadow-lg overflow-hidden"
+          className="w-full max-w-5xl h-[708px] bg-white rounded-xl shadow-lg overflow-hidden"
         >
           <div className="md:flex">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="hidden md:block md:w-2/5 bg-[#1E354C] p-8 text-white"
+              className="hidden md:block md:w-2/5 bg-[#1E354C] p-6 text-white"
             >
               <div className="h-full flex flex-col justify-between">
                 <div>
@@ -253,7 +262,7 @@ const DoctorAppointmentForm = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="text-2xl font-bold mb-2"
+                    className="text-xl font-bold mb-2"
                   >
                     Book Your Appointment
                   </motion.h1>
@@ -261,51 +270,51 @@ const DoctorAppointmentForm = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="text-blue-200"
+                    className="text-blue-200 text-sm"
                   >
                     Fill out the form to schedule your visit with our specialists.
                   </motion.p>
                 </div>
-                <div className="mt-8">
+                <div className="mt-6">
                   <motion.div 
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
-                    className="space-y-6"
+                    className="space-y-4"
                   >
-                    <motion.div variants={itemVariants} className="flex items-center">
-                      <div className="bg-[#2DA891] rounded-full p-2 mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <motion.div variants={itemVariants} className="flex items-start">
+                      <div className="bg-[#2DA891] rounded-full p-2 mr-3 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-semibold">Quick Response</h3>
-                        <p className="text-sm text-blue-200">We'll confirm your appointment within 24 hours</p>
+                        <h3 className="font-semibold text-sm">Quick Response</h3>
+                        <p className="text-xs text-blue-200">We'll confirm your appointment within 24 hours</p>
                       </div>
                     </motion.div>
                     
-                    <motion.div variants={itemVariants} className="flex items-center">
-                      <div className="bg-[#2DA891] rounded-full p-2 mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <motion.div variants={itemVariants} className="flex items-start">
+                      <div className="bg-[#2DA891] rounded-full p-2 mr-3 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-semibold">Verified Doctors</h3>
-                        <p className="text-sm text-blue-200">All our specialists are board-certified</p>
+                        <h3 className="font-semibold text-sm">Verified Doctors</h3>
+                        <p className="text-xs text-blue-200">All our specialists are board-certified</p>
                       </div>
                     </motion.div>
                     
-                    <motion.div variants={itemVariants} className="flex items-center">
-                      <div className="bg-[#2DA891] rounded-full p-2 mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <motion.div variants={itemVariants} className="flex items-start">
+                      <div className="bg-[#2DA891] rounded-full p-2 mr-3 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-semibold">Reminder Alerts</h3>
-                        <p className="text-sm text-blue-200">We'll remind you before your appointment</p>
+                        <h3 className="font-semibold text-sm">Reminder Alerts</h3>
+                        <p className="text-xs text-blue-200">We'll remind you before your appointment</p>
                       </div>
                     </motion.div>
                   </motion.div>
@@ -317,14 +326,14 @@ const DoctorAppointmentForm = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="w-full md:w-2/3 p-6 md:p-8"
+              className="w-full md:w-3/5 p-4 md:p-6"
             >
-              <div className="md:hidden mb-6 text-center">
+              <div className="md:hidden mb-4 text-center">
                 <motion.h1 
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="text-2xl font-bold text-gray-800 mb-2"
+                  className="text-xl font-bold text-gray-800 mb-1"
                 >
                   Book Your Appointment
                 </motion.h1>
@@ -332,85 +341,99 @@ const DoctorAppointmentForm = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="text-gray-600"
+                  className="text-gray-600 text-sm"
                 >
                   Fill out the form to schedule your visit with our specialists.
                 </motion.p>
               </div>
               
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="space-y-3">
                 <motion.div 
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
-                  className="space-y-4"
+                  className="space-y-3"
                 >
-                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">First Name</label>
                       <input
                         name="firstName"
                         value={formData.firstName}
                         readOnly
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Last Name</label>
                       <input
                         name="lastName"
                         value={formData.lastName}
                         readOnly
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
                         required
                       />
                     </div>
                   </motion.div>
 
                   <motion.div variants={itemVariants}>
-                    <label className="block text-sm font-medium text-white bg-[#2DA891] mb-1 p-2">Email</label>
+                    <label className="block text-xs font-medium text-white bg-[#2DA891] mb-1 p-1 rounded">Email</label>
                     <input
                       name="email"
                       value={formData.email}
                       readOnly
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
                       required
                     />
                   </motion.div>
 
                   <motion.div variants={itemVariants}>
-                    <label className="block text-sm font-medium  text-white bg-[#2DA891] mb-1 p-2">Address</label>
+                    <label className="block text-xs font-medium text-white bg-[#2DA891] mb-1 p-1 rounded">Address</label>
                     <input
                       name="address"
                       type="text"
                       placeholder="Your full address"
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       required
                     />
                   </motion.div>
 
-                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                      <input
-                        name="phoneNumber"
-                        type="tel"
-                        placeholder="+1 (123) 456-7890"
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        required
-                      />
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Phone Number</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <span className="flex items-center">
+                            <img 
+                              src="https://flagcdn.com/w20/np.png" 
+                              alt="Nepal Flag" 
+                              className="w-4 h-4 mr-1"
+                            />
+                            <span className="text-sm text-gray-500">+977</span>
+                          </span>
+                        </div>
+                        <input
+                          name="phoneNumber"
+                          type="tel"
+                          value={formData.phoneNumber}
+                          onChange={handlePhoneNumberChange}
+                          placeholder="98XXXXXXXX"
+                          className="w-full pl-16 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          required
+                          maxLength={10}
+                        />
+                      </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Age</label>
                       <input
                         name="age"
                         type="number"
                         placeholder="Your age"
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                         min="0"
                         max="120"
@@ -418,13 +441,13 @@ const DoctorAppointmentForm = () => {
                     </div>
                   </motion.div>
 
-                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Gender</label>
                       <select
                         name="gender"
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                       >
                         <option value="">Select Gender</option>
@@ -435,11 +458,11 @@ const DoctorAppointmentForm = () => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Health Concern</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Health Concern</label>
                       <select
                         name="selectedDisease"
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                       >
                         <option value="">Select</option>
@@ -454,11 +477,11 @@ const DoctorAppointmentForm = () => {
                   </motion.div>
 
                   <motion.div variants={itemVariants}>
-                    <label className="block text-sm font-medium  text-white bg-[#2DA891] mb-1 p-2">Select Doctor</label>
+                    <label className="block text-xs font-medium text-white bg-[#2DA891] mb-1 p-1 rounded">Select Doctor</label>
                     <select
                       name="selectedDoctor"
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       required
                     >
                       <option value="">Select a doctor</option>
@@ -470,25 +493,25 @@ const DoctorAppointmentForm = () => {
                     </select>
                   </motion.div>
 
-                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Appointment Date</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Appointment Date</label>
                       <input
                         name="appointmentDate"
                         type="date"
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                         min={minDate}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Appointment Time</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Appointment Time</label>
                       <input
                         name="appointmentTime"
                         type="time"
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                         min={formData.appointmentDate === minDate ? new Date().toTimeString().substring(0, 5) : undefined}
                       />
@@ -496,13 +519,13 @@ const DoctorAppointmentForm = () => {
                   </motion.div>
 
                   <motion.div variants={itemVariants}>
-                    <label className="block text-sm font-medium  text-white bg-[#2DA891] mb-1 p-2">Additional Information</label>
+                    <label className="block text-xs font-medium text-white bg-[#2DA891] mb-1 p-1 rounded">Additional Information</label>
                     <textarea
                       name="message"
                       placeholder="Please describe your symptoms or any other relevant information"
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      rows="4"
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      rows="3"
                       required
                     ></textarea>
                   </motion.div>
@@ -514,11 +537,11 @@ const DoctorAppointmentForm = () => {
                   whileTap="tap"
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full mt-6 py-3 px-4 rounded-lg font-medium text-white transition-colors ${isSubmitting ? 'bg-[#1E354C] cursor-not-allowed' : 'bg-[#1E354C] hover:bg-[#416589]'}`}
+                  className={`w-full mt-4 py-2 px-4 rounded-lg text-sm font-medium text-white transition-colors ${isSubmitting ? 'bg-[#1E354C] cursor-not-allowed' : 'bg-[#1E354C] hover:bg-[#416589]'}`}
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>

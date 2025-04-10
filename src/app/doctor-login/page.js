@@ -1,14 +1,16 @@
 "use client";
-// pages/login-doctor.js
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import { FaUserMd, FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 
 function DoctorLoginPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,8 +19,8 @@ function DoctorLoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading
-    setError(""); // Clear previous errors
+    setIsLoading(true);
+    setError("");
 
     try {
       const response = await fetch("/api/doctor-login", {
@@ -30,97 +32,158 @@ function DoctorLoginPage() {
       const result = await response.json();
 
       if (response.ok) {
-        // Successful login, redirect to doctor profile page
-        const doctorId = result.redirectTo.split("/").pop(); // Extract ID from the redirect URL
+        const doctorId = result.redirectTo.split("/").pop();
         router.push(`/doctor/${doctorId}`);
       } else {
-        // Show error message if login fails
-        setError(result.error || "Invalid email or password. Please try again.");
+        setError(result.error || "Invalid credentials. Please try again.");
       }
     } catch (err) {
-      setError("Something went wrong. Please try again later.");
+      setError("Network error. Please try again later.");
       console.error("Login error:", err);
     } finally {
-      setIsLoading(false); // End loading
+      setIsLoading(false);
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Doctor Login</h2>
-
-        {error && (
-          <div className="text-red-500 text-center mb-4 border border-red-500 rounded p-2 bg-red-50">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-[600px]">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+          {/* Header with logo */}
+          <div className="bg-white p-6 text-center border-b border-gray-100">
+            <div className="flex justify-center mb-6">
+              <Image 
+                src="/images/front.png" 
+                alt="Healthcare Logo" 
+                width={180} 
+                height={60}
+                className="object-contain"
+              />
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full flex items-center justify-center mb-4 shadow-md">
+                <FaUserMd className="text-white text-3xl" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Doctor Login</h2>
+              <p className="text-gray-500 mt-1">Welcome back to your medical dashboard</p>
+            </div>
           </div>
 
-          {/* Password */}
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
+          <div className="p-8 pt-6">
+            {error && (
+              <div className="mb-6 p-4 bg-red-50/80 text-red-700 rounded-lg border border-red-100 text-sm backdrop-blur-sm">
+                {error}
+              </div>
+            )}
 
-          {/* Forgot Password */}
-          <div className="text-right">
-            <Link href="/forgot-password" className="text-sm text-blue-500 hover:underline">
-              Forgot Password?
-            </Link>
-          </div>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+                  <FaEnvelope />
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Professional email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none transition-all duration-200 group-hover:border-blue-300"
+                  required
+                />
+              </div>
 
-          {/* Submit Button */}
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={`w-full py-2 px-4 rounded-md transition duration-300 ${
-                isLoading
-                  ? "bg-blue-300 cursor-not-allowed"
-                  : "bg-blue-500 hover:bg-blue-600 text-white"
-              }`}
-            >
-              {isLoading ? "Logging in..." : "Login"}
-            </button>
-          </div>
-        </form>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+                  <FaLock />
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Your password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full pl-10 pr-10 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none transition-all duration-200 group-hover:border-blue-300"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-blue-500 transition-colors"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
 
-        {/* Register Link */}
-        <p className="mt-4 text-sm text-center text-gray-600">
-          Don't have an account?{" "}
-          <Link href="/doctor-register" className="text-blue-500 hover:underline">
-            Register here
-          </Link>
-        </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <input
+                    id="remember-me"
+                    name="remember-me"
+                    type="checkbox"
+                    className="h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300 rounded"
+                  />
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-600">
+                    Remember me
+                  </label>
+                </div>
+
+                <div className="text-sm">
+                  <Link href="/forgot-password" className="font-medium text-blue-500 hover:text-blue-600 transition-colors">
+                    Forgot password?
+                  </Link>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className={`w-full py-3.5 px-4 rounded-lg font-medium text-white shadow-md transition-all duration-300 ${
+                  isLoading
+                    ? "bg-blue-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 hover:shadow-lg"
+                }`}
+              >
+                {isLoading ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Authenticating...
+                  </span>
+                ) : (
+                  "Sign In"
+                )}
+              </button>
+            </form>
+
+            <div className="mt-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-3 bg-white text-gray-500">
+                    Don't have an account?
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <Link 
+                  href="/doctor-register" 
+                  className="w-full block text-center py-2.5 px-4 border border-gray-200 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all hover:border-blue-300"
+                >
+                  Register as a Doctor
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
