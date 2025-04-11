@@ -4,6 +4,7 @@ import Image from "next/image";
 import CountUp from "react-countup";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "../Components/Uni.css";
+import { FaUser, FaLock, FaBriefcase, FaPuzzlePiece } from "react-icons/fa";
 
 // Import Swiper styles
 import "swiper/css";
@@ -15,63 +16,55 @@ import { Pagination } from "swiper/modules";
 function page() {
   const information = [
     {
-      href: "",
-      src: "https://danphehealth.com/frontend/img/svg/mobile-friendly.svg",
-      alt: "user",
-      title: "User Friendly",
+      icon: <FaUser className="text-4xl text-customPrimary mx-auto" />,
+      title: "User Friendly"
     },
     {
-      href: "",
-      src: "https://danphehealth.com/frontend/img/svg/lock.svg",
-      alt: "access",
-      title: "Easy to Access",
+      icon: <FaLock className="text-4xl text-customPrimary mx-auto" />,
+      title: "Easy to Access"
     },
     {
-      href: "",
-      src: "https://danphehealth.com/frontend/img/svg/suitcase.svg",
-      alt: "Appearance",
-      title: "Professional Appearance",
+      icon: <FaBriefcase className="text-4xl text-customPrimary mx-auto" />,
+      title: "Professional Appearance"
     },
     {
-      href: "",
-      src: "https://danphehealth.com/frontend/img/svg/jigsaw.svg",
-      alt: "Rich",
-      title: "Feature Rich",
-    },
+      icon: <FaPuzzlePiece className="text-4xl text-customPrimary mx-auto" />,
+      title: "Feature Rich"
+    }
   ];
 
   const card = [
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/nc2YYOp5UgiAIZbiOMUj82uxIdG4jlNwKztoLIdn.jpg",
+      src: "/images/doctor-ram.jpeg",
       alt: "img",
       name: "Ram P. Dhungana",
       bio: "Chairman",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/oQLbkHz6vDmpHhrZodXRmQiXOv44n7S5MX6WrKbm.jpg",
+      src: "/images/doctor-Prabhat.jpeg",
       alt: "img",
       name: "Dr Prabhat Adhikari, MD",
       bio: "Co-Founder and Clinical Director",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/Z5p6J64WddandSwTO03HBpjeNI0dxB2T8rauXZwv.jpg",
+      src: "/images/doctor-shiv.png",
       alt: "img",
       name: "Shiv P Koirala",
       bio: "Co-Founder and Technical Director",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/Ez0mPHOJJ7XkxkvkgerlblVKqiwtJcQDGHPTF73J.jpg",
+      src: "/images/doctor-binod.jpeg",
       alt: "img",
       name: "Dr.Binod Dhungana, MD, MBA",
       bio: "Co-founder and Director",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/R9gD9uD4mHA8hKxg5p5ZUIvs1GXp0CloKR3C1TZX.jpg",
+      src: "/images/doctor-yubraj.jpeg",
       alt: "img",
       name: "Yubraj Parajuli",
       bio: "Chief Executive Officer",
@@ -80,53 +73,55 @@ function page() {
 
   const logos = [
     {
-      src: "https://danphehealth.com/storage/uploads/4IY4SO3BaLokN5TATWTijwqOSQvnAq880dX06swm.png",
+      src: "/images/company-one.jpg",
       alt: "Company 1",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/YRlPFHdotC4yL6OpPwfpJi6W0S8G0kcPNNmvL5JG.png",
+      src: "/images/company-two.png",
+      alt: "Company 2",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/LvNtx7mQtJlbz9ycPe8pQZVoPzLBiFsuMyfRY1Pr.png",
+      src: "/images/budanilkantha.jpg",
       alt: "Company 3",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/dpOuibvB4foJdzuMpROb1Xaduko2KPZ8h5sof1Nz.png",
+      src: "/images/company-four.png",
       alt: "Company 4",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg",
+      src: "/images/charak.png",
       alt: "Company 5",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/rqjKdONW5AKP4sX49m4IIgKAx8zo4I6qm9pHLIdw.png",
+      src: "/images/company-six.jpeg",
       alt: "Company 6",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/DvtgZd0LZopNWutTMb8AYZ7AnQRKHH4ROmN7zCIw.png",
+      src: "/images/company-seven.png",
       alt: "Company 7",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png",
+      src: "/images/company-eight.png",
       alt: "Company 8",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/PSjGCpwlgqK620FI8qTz4h6vkUvexhNIq0iQUvEz.png",
+      src: "/images/company-nine.png",
       alt: "Company 9",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg",
+      src: "/images/company-ten.jpeg",
       alt: "Company 10",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/XwKrcFgg8NzD5hs58C8dz91oiCFZ0MnLJNKoqdaQ.png",
+      src: "/images/company-eleven.png",
       alt: "Company 11",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/roKTGWaMI1ZvCpKyogTJV22ri3QYifaTXylgCdcC.png",
+      src: "/images/company-twelve.png",
       alt: "Company 12",
     },
   ];
+
   return (
     <>
       <section>
@@ -191,7 +186,7 @@ function page() {
         <div className="container mx-auto p-10 md:p-8 text-center">
           <h1 className="text-xl lg:text-4xl font-bold ">
             Choose{" "}
-            <span className="text-customPrimary">SmartCare Connect For</span>
+            <span className="text-customPrimary">SmartCare Connects For</span>
           </h1>
           <p className="mt-2 md:mt-4 text-sm md:text-lg">
             SmartCare offers a top-notch, affordable Hospital Management
@@ -228,28 +223,21 @@ function page() {
             }}
           >
             {information.map((info, index) => (
-              <SwiperSlide key={index} className="flex justify-center">
-                <div
-                  className={`p-6 text-center transition-all duration-500 swiper-slide-content`}
-                >
-                  <Image
-                    src={info.src}
-                    alt={info.alt}
-                    width={50}
-                    height={50}
-                    className="mx-auto"
-                  />
-                  <h4 className="mt-4 text-lg font-semibold">{info.title}</h4>
-                  <p className="text-gray-600 mt-2">
-                    {index === 0
-                      ? "SmartCare HMIS is a fully web-based system, enabling access and management of patient data and organization updates from anywhere in the world."
-                      : index === 1
-                      ? "SmartCare HMIS enhances patient care with professional management of hospital data. Features like online appointment scheduling and fully integrated EMR and HER streamline patient and hospital management."
-                      : "SmartCare is a complete HMIS/EMR solution that encompasses over 32 modules with all the features required to operate a hospital ranging from small to large size."}
-                  </p>
-                </div>
-              </SwiperSlide>
-            ))}
+  <SwiperSlide key={index} className="flex justify-center">
+    <div className="p-6 text-center transition-all duration-500 swiper-slide-content">
+      {info.icon}
+      <h4 className="mt-4 text-lg font-semibold">{info.title}</h4>
+      <p className="text-gray-600 mt-2">
+        {index === 0
+          ? "SmartCare HMIS is a fully web-based system, enabling access and management of patient data and organization updates from anywhere in the world."
+          : index === 1
+          ? "SmartCare HMIS enhances patient care with professional management of hospital data. Features like online appointment scheduling and fully integrated EMR and HER streamline patient and hospital management."
+          : "SmartCare is a complete HMIS/EMR solution that encompasses over 32 modules with all the features required to operate a hospital ranging from small to large size."}
+      </p>
+    </div>
+  </SwiperSlide>
+))}
+
           </Swiper>
         </div>
       </section>
@@ -260,7 +248,7 @@ function page() {
             Unveiling Our Pillars of Strength
           </h1>
           <p className="mt-2 md:mt-4 text-sm md:text-lg">
-            The Core Attributes and Values that Propel SmartCare Connect.
+            The Core Attributes and Values that Propel SmartCare Connects.
             Forward in Excellence, Innovation, and Client-Centric Success.
           </p>
         </div>
@@ -296,7 +284,7 @@ function page() {
         <div className="container mx-auto md:p-12 p-10 space-y-8">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">
             Professional Team Members of{" "}
-            <span className="text-customPrimary">SmartCare Connect</span>
+            <span className="text-customPrimary">SmartCare Connects</span>
           </h1>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {card.map((person, index) => (
@@ -380,8 +368,8 @@ function page() {
             <div className="hidden md:block">
               <div className="relative">
                 <Image
-                  src="https://danphehealth.com/frontend/img/Group%204724.png"
-                  alt="DANPHE Dashboard"
+                  src="/images/dash.png"
+                  alt="Smart Dashboard"
                   width={600}
                   height={0}
                   className="rounded-lg"
@@ -424,7 +412,7 @@ function page() {
           <div className="rounded-2xl flex flex-col md:flex-row justify-between items-center bg-[#F2FBF8] py-10">
             <div className="w-full md:w-1/4 mb-6 md:mb-0 hidden md:block">
               <Image
-                src="https://danphehealth.com/frontend/img/doctor.png"
+                src="/images/doctor-six.avif"
                 alt="img"
                 width={300}
                 height={0}
@@ -464,3 +452,5 @@ function page() {
   );
 }
 export default page;
+
+

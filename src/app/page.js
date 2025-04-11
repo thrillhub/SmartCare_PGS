@@ -3,6 +3,29 @@ import React, { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 
+// Import icons from react-icons
+import { 
+  FaUserInjured, 
+  FaClinicMedical, 
+  FaProcedures, 
+  FaBed, 
+  FaFileMedical, 
+  FaMicroscope, 
+  FaPills, 
+  FaBoxes, 
+  FaListOl, 
+  FaFlask,
+  FaCalendarAlt,
+  FaArrowRight,
+  FaDownload,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+  FaStar,
+  FaStarHalfAlt
+} from "react-icons/fa";
+import { IoMdArrowRoundForward } from "react-icons/io";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -15,64 +38,64 @@ function Page() {
   const services = [
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/o8LhlIHosonN1ss1Xbnx4BuPQIH2j5kTJLsqkWUF.svg",
+      icon: FaUserInjured,
       alt: "Patient Administration",
       title: "Patient Administration",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/1FLzrtg52EKgMbKXaPPcngIBl8ThbVT5f93VKn5U.svg",
+      icon: FaClinicMedical,
       alt: "OPD Management",
       title: "OPD Management",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/JZb6vJSIzCQZjvPUKBy1ds3KmAL8FMlvVL1XhtV7.svg",
+      icon: FaProcedures,
       alt: "IPD Management",
       title: "IPD Management",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/CACHu7gc6zeiiyuUvDBzfZIn2tBT51gzsKA0wpLj.svg",
+      icon: FaBed,
       title: "OT Management",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/TEOZjK4GizUOcRSJNzlS57CV0JKt5mQxvJPUsKiS.svg",
+      icon: FaFileMedical,
       alt: "SSF Management",
       title: "SSF Management",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/Xvqm3QartPuNThCvMEGOaXKlPYTcOgAKAJJbELsw.svg",
-      alt: "Pathalogy Software",
-      title: "Pathalogy Software",
+      icon: FaMicroscope,
+      alt: "Pathology Software",
+      title: "Pathology Software",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/ap8hzm56Nfyn3drN6WloW0nimKuACXPl0ViThHH8.svg",
+      icon: FaPills,
       alt: "Pharmacy",
       title: "Pharmacy",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/CSdzRoHePc9wwhavblw3rEj0yPSAFqL9bbIiWR2A.svg",
+      icon: FaBoxes,
       alt: "Inventory Management",
       title: "Inventory Management",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/CSdzRoHePc9wwhavblw3rEj0yPSAFqL9bbIiWR2A.svg",
-      alt: "Quene Management",
+      icon: FaListOl,
+      alt: "Queue Management",
       title: "Queue Management",
     },
     {
       href: "",
-      src: "https://danphehealth.com/storage/uploads/X58IC6Jo47xTRG1OactLdafrZ7AMXYmNJuaYmjkw.svg",
-      alt: "Pathalogy Software",
-      title: "Pathalogy Software",
+      icon: FaFlask,
+      alt: "Pathology Software",
+      title: "Pathology Software",
     },
-  ];
+  ]; 
 
   const testimonials = [
     {
@@ -82,7 +105,7 @@ function Page() {
         "MI Kidney Centre is focusing on spreading Dialysis services in different districts of Nepal, prioritizing rural cities with frequent screening and awareness programs for Kidney diseases.",
       rating: 4,
       image:
-        "https://danphehealth.com/storage/uploads/CvegKrVeoWfcXC7sMrXLVmB6Vj5ikChWIPZEln7d.png",
+        "/images/mark.png",
       company: "Mark International Kidney Center",
     },
     {
@@ -92,7 +115,7 @@ function Page() {
         "A team of doctors committed to providing affordable and high-quality basic medical services believes in preventing and reducing illness within an affordable setup.",
       rating: 4,
       image:
-        "https://danphehealth.com/storage/uploads/WJhqEGEa3RoG8kMO0vitnHKhk5L3LDixj72dxwfm.png",
+        "/images/budanilkantha.jpg",
       company: "Buddhanilkantha Healthcare Pvt. Ltd.",
     },
     {
@@ -102,68 +125,70 @@ function Page() {
         "Charak Memorial Hospital strives for excellence in quality, hygiene, and technology, meeting public health needs in the Western Region through innovation and cost-effective solutions.",
       rating: 4,
       image:
-        "https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg",
+        "/images/charak.png",
       company: "Charak Hospital Pvt. Ltd.",
     },
   ];
 
   const logos = [
     {
-      src: "https://danphehealth.com/storage/uploads/4IY4SO3BaLokN5TATWTijwqOSQvnAq880dX06swm.png",
+      src: "/images/company-one.jpg",
       alt: "Company 1",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/YRlPFHdotC4yL6OpPwfpJi6W0S8G0kcPNNmvL5JG.png",
+      src: "/images/company-two.png",
+      alt: "Company 2",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/LvNtx7mQtJlbz9ycPe8pQZVoPzLBiFsuMyfRY1Pr.png",
+      src: "/images/budanilkantha.jpg",
       alt: "Company 3",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/dpOuibvB4foJdzuMpROb1Xaduko2KPZ8h5sof1Nz.png",
+      src: "/images/company-four.png",
       alt: "Company 4",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/s6mv48ri5hDrXDxgzU3E1lIW8qRj9TUrV69b5hQc.jpg",
+      src: "/images/charak.png",
       alt: "Company 5",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/rqjKdONW5AKP4sX49m4IIgKAx8zo4I6qm9pHLIdw.png",
+      src: "/images/company-six.jpeg",
       alt: "Company 6",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/DvtgZd0LZopNWutTMb8AYZ7AnQRKHH4ROmN7zCIw.png",
+      src: "/images/company-seven.png",
       alt: "Company 7",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/WQEEaXp58AGxNO61rv0xqypPC4KpMhnvpJb2Q01c.png",
+      src: "/images/company-eight.png",
       alt: "Company 8",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/PSjGCpwlgqK620FI8qTz4h6vkUvexhNIq0iQUvEz.png",
+      src: "/images/company-nine.png",
       alt: "Company 9",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/IHeII9hv0UFpBpwTLouWfOOnGMWDtNaFIbmnQZg1.jpg",
+      src: "/images/company-ten.jpeg",
       alt: "Company 10",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/XwKrcFgg8NzD5hs58C8dz91oiCFZ0MnLJNKoqdaQ.png",
+      src: "/images/company-eleven.png",
       alt: "Company 11",
     },
     {
-      src: "https://danphehealth.com/storage/uploads/roKTGWaMI1ZvCpKyogTJV22ri3QYifaTXylgCdcC.png",
+      src: "/images/company-twelve.png",
       alt: "Company 12",
     },
   ];
 
-  // State to manage active service index
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <>
-      <section className="bg-[#F2FBF8]">
-        <div className="container mx-auto p-7 md:px-12 md:pt-[140px] pt-[220px]">
+      {/* Hero Section */}
+      <section className="bg-[#F2FBF8] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F2FBF8] to-transparent z-10"></div>
+        <div className="container mx-auto p-7 md:px-12 md:pt-[140px] pt-[220px] relative z-20">
           <Swiper
             slidesPerView={1}
             spaceBetween={30}
@@ -191,7 +216,7 @@ function Page() {
                   </h4>
                   <div>
                     <button className="mt-5 py-3 px-3 rounded-md bg-customSecondary text-white hover:bg-customDark transition-colors duration-500 ease-in-out">
-                      <i className="bi bi-calendar2-minus-fill pr-2"></i>
+                      <FaCalendarAlt className="inline mr-2" />
                       Schedule a Demo
                     </button>
                     <button className="mt-5 py-3 px-4 rounded-md border border-customSecondary text-customSecondary hover:bg-customDark ml-3 hover:text-white hover:border-transparent transition-colors duration-500 ease-in-out">
@@ -201,10 +226,11 @@ function Page() {
                 </div>
                 <div className="hidden lg:block">
                   <Image
-                    src="https://danphehealth.com/storage/uploads/5BRPoCDX4MLIIdGkW2LQVtlcBFKZa61HMKed8Plg.png"
+                    src="/images/doctor-one.webp"
                     alt="Logo"
-                    width={420}
-                    height={0}
+                    width={600}
+                    height={400}
+                    className="rounded-lg shadow-xl"
                   />
                 </div>
               </div>
@@ -222,18 +248,18 @@ function Page() {
                   </h2>
                   <div className="md:w-2/3 w-3/3 pt-5 space-y-5">
                     <h4>
-                      <i className="bi bi-arrow-right-square-fill pr-3 text-customSecondary"></i>
+                      <FaArrowRight className="inline mr-3 text-customSecondary" />
                       Help our customer to take a lead in their business using
                       information technology
                     </h4>
                     <h4>
-                      <i className="bi bi-arrow-right-square-fill pr-3 text-customSecondary"></i>
+                      <FaArrowRight className="inline mr-3 text-customSecondary" />
                       Time tested products to increase customer operation
                       efficiency immediately
                     </h4>
                   </div>
                   <button className="mt-5 py-3 px-3 rounded-md bg-customSecondary text-white hover:bg-[#07092B] transition-colors duration-500 ease-in-out">
-                    <i className="bi bi-calendar2-minus-fill pr-2"></i>
+                    <FaCalendarAlt className="inline mr-2" />
                     Schedule a Demo
                   </button>
                   <button className="mt-5 py-3 px-4 rounded-md border border-customSecondary text-customSecondary hover:bg-customDark ml-3 hover:text-white hover:hover:border-transparent transition-colors duration-500 ease-in-out">
@@ -242,10 +268,11 @@ function Page() {
                 </div>
                 <div className="hidden lg:block">
                   <Image
-                    src="https://danphehealth.com/frontend/img/slideimg2.png"
+                    src="/images/doctor-two.jpg"
                     alt="Logo"
-                    width={450}
-                    height={0}
+                    width={600}
+                    height={400}
+                    className="rounded-lg shadow-xl"
                   />
                 </div>
               </div>
@@ -261,7 +288,7 @@ function Page() {
                     more?
                   </h4>
                   <button className="mt-5 py-3 px-3 rounded-md bg-customSecondary text-white hover:bg-customDark transition-colors duration-500 ease-in-out">
-                    <i className="bi bi-calendar2-minus-fill pr-2"></i>
+                    <FaCalendarAlt className="inline mr-2" />
                     Schedule a Demo
                   </button>
                   <button className="mt-5 py-3 px-4 rounded-md border border-customSecondary text-customSecondary hover:bg-customDark ml-3 hover:text-white hover:border-transparent transition-colors duration-500 ease-in-out">
@@ -270,10 +297,11 @@ function Page() {
                 </div>
                 <div className="hidden lg:block">
                   <Image
-                    src="https://danphehealth.com/storage/uploads/gNobfWer8kFqkYAYiKbXvwkIAMe5sKqX6PSSkyNH.png"
+                    src="/images/doctor-three.webp"
                     alt="Logo"
                     width={450}
-                    height={0}
+                    height={300}
+                    className="rounded-lg shadow-xl"
                   />
                 </div>
               </div>
@@ -282,8 +310,9 @@ function Page() {
         </div>
       </section>
 
+      {/* Services Section */}
       <section className="md:py-[50px]">
-        <div className="container mx-auto md:p-8 p-8  text-center">
+        <div className="container mx-auto md:p-8 p-8 text-center">
           <div className="flex flex-col items-center">
             <h1 className="text-3xl md:text-3xl lg:text-5xl font-bold text-[#3D3D3D]">
               Discover a complete solution for HIMS with EMR
@@ -292,91 +321,87 @@ function Page() {
               All-in-one hospital management solution for seamless operations
             </p>
           </div>
-        </div>
 
-        <div className="container mx-auto md:px-4 px-8">
-          <Swiper
-            slidesPerView={2}
-            spaceBetween={10}
-            pagination={false}
-            navigation={true}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 10,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 10,
-              },
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 10,
-              },
-            }}
-            modules={[Navigation]}
-            className="mySwiper secswipe border rounded-md shadow-blue-400 shadow-lg lg:w-[80%]"
-          >
-            {services.map((service, index) => (
-              <SwiperSlide
-                key={index}
-                className={`swiper-slide-custom text-center flex flex-col items-center py-5 relative ${
-                  index === activeIndex ? "active" : ""
-                }`}
-                onClick={() => setActiveIndex(index)}
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  className={`flex flex-col items-center ${
-                    index === activeIndex ? "active" : "hover"
-                  }`}
-                >
-                  <Image
-                    src={service.src}
-                    alt={service.alt}
-                    width={30}
-                    height={30} 
-                    className="mx-auto"
-                  />
-                  <h4
-                    className={`mt-2 text-sm ${
-                      service.textColor || "text-gray-800"
-                    } relative text`}
+          <div className="container mx-auto md:px-4 px-8">
+            <Swiper
+              slidesPerView={2}
+              spaceBetween={10}
+              pagination={false}
+              navigation={true}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 10,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+              }}
+              modules={[Navigation]}
+              className="mySwiper secswipe border rounded-md shadow-blue-400 shadow-lg lg:w-[80%]"
+            >
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <SwiperSlide
+                    key={index}
+                    className={`swiper-slide-custom text-center flex flex-col items-center py-5 relative ${
+                      index === activeIndex ? "active" : ""
+                    }`}
+                    onClick={() => setActiveIndex(index)}
+                    style={{
+                      cursor: "pointer",
+                    }}
                   >
-                    {service.title}
-                    <span
-                      className={`underline ${
-                        index === activeIndex
-                          ? "underline-active"
-                          : "underline-hover"
+                    <div
+                      className={`flex flex-col items-center ${
+                        index === activeIndex ? "active" : "hover"
                       }`}
-                    ></span>
-                  </h4>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                    >
+                      <Icon className="text-3xl text-customSecondary mx-auto" />
+                      <h4
+                        className={`mt-2 text-sm ${
+                          service.textColor || "text-gray-800"
+                        } relative text`}
+                      >
+                        {service.title}
+                        <span
+                          className={`underline ${
+                            index === activeIndex
+                              ? "underline-active"
+                              : "underline-hover"
+                          }`}
+                        ></span>
+                      </h4>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
         </div>
       </section>
 
-      {/* ... */}
-
+      {/* Feature Section 1 */}
       <section className="md:py-[50px] pt-6">
         <div className="container mx-auto md:p-12 p-10">
-          <div className="flex flex-col-reverse md:flex-row justify-center items-center">
-            <div class="w-full md:w-1/2 bg-gray-100 rounded-md shadow-xl shadow-slate-300 px-4 md:relative left-5 py-5 md:py-5">
+          <div className="flex flex-col-reverse md:flex-row justify-center items-center gap-8">
+            <div className="w-full md:w-1/2 bg-gray-100 rounded-md shadow-xl shadow-slate-300 px-4 md:relative left-5 py-5 md:py-5">
               <h4 className="text-green-600 font-semibold">OUR MODULE</h4>
               <h2 className="text-3xl font-bold mb-4 text-[#3D3D3D]">
-              Enhancing Patient Care and Staff Incentives
+                Enhancing Patient Care and Staff Incentives
               </h2>
               <p className="mb-6">
-              This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other
+                This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection of demographic, insurance, and other essential information efficiently.
               </p>
               <a
                 href="#"
-                class="bg-customSecondary hover:bg-customDark text-white py-2 px-4 rounded transition-colors duration-500 ease-in-out;"
+                className="bg-customSecondary hover:bg-customDark text-white py-2 px-4 rounded transition-colors duration-500 ease-in-out;"
               >
                 View Detail
               </a>
@@ -384,15 +409,17 @@ function Page() {
             <div className="w-full md:w-1/2">
               <Image
                 src="/images/1.jpg"
-                alt="Operation Theater"
+                alt="Patient Care"
                 width={800}
-                height={0}
+                height={500}
+                className="rounded-lg shadow-xl"
               />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Feature Section 2 */}
       <section className="pb-6 md:pb-0">
         <div className="container mx-auto md:p-12 p-10">
           <div className="flex flex-col-reverse md:flex-row justify-center items-center bg-white overflow-visible">
@@ -403,7 +430,7 @@ function Page() {
                   alt="Icon"
                   className="w-10 h-10 mr-4"
                   width={100}
-                  height={0}
+                  height={100}
                 />
                 <div>
                   <h3 className="text-2xl font-bold text-gray-800">
@@ -434,37 +461,42 @@ function Page() {
               </a>
             </div>
             <div className="w-full lg:w-1/2 flex justify-center">
-              <img
-                src="https://danphehealth.com/storage/uploads/J5HGllnvBypttl0s1w0gHmgj05xHz50zl1ly15NQ.jpg"
-                alt="Danphe HIMS"
-                className="w-full"
+              <Image
+                src="/images/2.jpg"
+                alt="Healthcare Team"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-xl"
               />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Cards Section */}
       <section className="md:py-[50px]">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:p-12 p-10 bg-gray-100">
-          <div className="relative rounded-lg overflow-hidden shadow-lg">
-            <img
-              src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="Danphe Efficiency"
-              class="w-full h-full object-cover"
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:p-12 p-10 bg-gray-100">
+          <div className="relative rounded-lg overflow-hidden shadow-lg group">
+            <Image
+              src="/images/doctor-seven.jpeg"
+              alt="SmartCare Efficiency"
+              width={400}
+              height={300}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center px-4 text-white">
-              <h2 class="text-xl font-semibold">SmartCare Efficiency</h2>
-              <p class="mt-2 text-lg font-bold">Explore more about SmartCare Connect!</p>
+              <h2 className="text-xl font-semibold">SmartCare Efficiency</h2>
+              <p className="mt-2 text-lg font-bold">Explore more about SmartCare Connect!</p>
               <button className="mt-6 w-[100px] p-2 text-sm bg-customSecondary text-white rounded hover:bg-[#070928] transition-colors duration-500 ease-in-out">
                 View Detail
               </button>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <div className="flex items-center ">
+          <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="flex items-center">
               <div className="text-green-500 lg:text-3xl text-2xl">
-                <i className="bi bi-download  lg:mr-4 md:mr-2 mr-4"></i>
+                <i className="bi bi-download lg:mr-4 md:mr-2 mr-4"></i>
               </div>
               <h2 className="lg:text-4xl text-2xl font-bold text-customSecondary">
                 Brochure
@@ -479,9 +511,9 @@ function Page() {
             </button>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <div className="flex items-center ">
-              <div className="text-green-500 lg:text-3xl text-2xl ">
+          <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="flex items-center">
+              <div className="text-green-500 lg:text-3xl text-2xl">
                 <i className="bi bi-download lg:mr-4 md:mr-2 mr-4"></i>
               </div>
               <h2 className="lg:text-4xl text-2xl font-bold text-customSecondary">
@@ -499,7 +531,8 @@ function Page() {
         </div>
       </section>
 
-      <section className="py-10 md:py-0">
+      {/* Benefits Section */}
+      <section className="py-10 md:py-0 bg-white">
         <div className="container mx-auto md:p-8 p-10">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#3D3D3D]">
@@ -514,23 +547,24 @@ function Page() {
             {/* Left Section */}
             <div className="flex-1 min-w-[300px]">
               <Image
-                src="https://danphehealth.com/frontend/img/about-img.png"
-                alt="img"
+                src="/images/doctor-eight.webp"
+                alt="Doctor using tablet"
                 width={480}
-                height={0}
+                height={320}
                 className="rounded-md shadow-md shadow-slate-300 w-full"
               />
             </div>
 
             <div className="flex-1 min-w-[300px] space-y-6">
               <div className="flex items-start space-x-3">
-                <Image
-                  src="https://danphehealth.com/frontend/img/svg/fi_2785482.svg"
-                  alt="img"
-                  width={100}
-                  height={0}
-                  className="border p-2 rounded-md bg-[#00AC75]"
-                />
+                <div className="border p-2 rounded-md bg-[#217ef7]">
+                  <Image
+                    src="/images/doctor-svg.jpeg"
+                    alt="Doctor icon"
+                    width={100}
+                    height={40}
+                  />
+                </div>
                 <div className="space-y-2">
                   <h4 className="text-xl font-bold">
                     Built By Doctors For Doctors
@@ -543,13 +577,14 @@ function Page() {
               </div>
 
               <div className="flex items-start space-x-3">
-                <Image
-                  src="https://danphehealth.com/frontend/img/svg/fi_487551.svg"
-                  alt="img"
-                  width={140}
-                  height={0}
-                  className="border p-2 rounded-md bg-[#00AC75]"
-                />
+                <div className="border p-2 rounded-md bg-[#217ef7]">
+                  <Image
+                    src="/images/customize-svg.png"
+                    alt="Customize icon"
+                    width={160}
+                    height={40}
+                  />
+                </div>
                 <div className="space-y-2">
                   <h4 className="text-xl font-bold">Customizable & Scalable</h4>
                   <p className="text-gray-600 text-sm">
@@ -561,13 +596,14 @@ function Page() {
               </div>
 
               <div className="flex items-start space-x-3">
-                <Image
-                  src="https://danphehealth.com/frontend/img/svg/fi_3305673.svg"
-                  alt="img"
-                  width={85}
-                  height={0}
-                  className="border p-2 rounded-md bg-[#00AC75]"
-                />
+                <div className="border p-2 rounded-md bg-[#217ef7]">
+                  <Image
+                    src="/images/cloudbase.png"
+                    alt="Cloud icon"
+                    width={88}
+                    height={40}
+                  />
+                </div>
                 <div className="space-y-2">
                   <h4 className="text-xl font-bold">Cloudbase Service</h4>
                   <p className="text-gray-600 text-sm">
@@ -581,16 +617,17 @@ function Page() {
         </div>
       </section>
 
-      <section className="md:py-[50px]">
+
+      {/* Testimonials Section */}
+      <section className="md:py-[50px] bg-gray-50">
         <div className="container flex-col mx-auto md:p-12 p-10 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#3D3D3D]">
-            Access Your Inventory
+            What Our Clients Say
           </h1>
           <p className="text-base text-[#3D3D3D] py-3">
             See what our valuable clients tell about us
           </p>
 
-          {/* Slider for mobile and tablet screens */}
           <div className="block md:hidden py-10">
             <Swiper
               spaceBetween={20}
@@ -599,42 +636,30 @@ function Page() {
               pagination={{
                 clickable: true,
               }}
-              modules={[Pagination]} // Add the Pagination module here
+              modules={[Pagination]}
             >
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
-                  <div className="bg-white border shadow-xl shadow-slate-300 rounded-lg p-6">
+                  <div className="bg-white border shadow-xl shadow-slate-300 rounded-lg p-6 h-full">
                     <p className="text-gray-700 mb-4">
                       {testimonial.description}
                     </p>
                     <div className="flex items-center mb-4 justify-center">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className="h-5 w-5 text-yellow-500"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
+                        <FaStar key={i} className="h-5 w-5 text-yellow-500" />
                       ))}
                       {[...Array(5 - testimonial.rating)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className="h-5 w-5 text-gray-300"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
+                        <FaStar key={i} className="h-5 w-5 text-gray-300" />
                       ))}
                     </div>
                     <p className="font-semibold text-lg text-gray-800">
                       {testimonial.company}
                     </p>
-                    <img
+                    <Image
                       src={testimonial.image}
                       alt={testimonial.company}
+                      width={100}
+                      height={50}
                       className="mt-4 h-12 object-contain mx-auto"
                     />
                   </div>
@@ -643,42 +668,29 @@ function Page() {
             </Swiper>
           </div>
 
-          {/* Static layout for PC screens */}
           <div className="hidden md:flex flex-col items-center justify-between space-y-8 md:flex-row md:space-y-0 md:space-x-7">
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-white shadow-lg shadow-slate-400 rounded-lg p-6 w-100 lg:h-[350px] "
+                className="bg-white shadow-lg shadow-slate-400 rounded-lg p-6 w-100 lg:h-[350px] hover:shadow-xl transition-shadow duration-300"
               >
                 <p className="text-gray-700 mb-4">{testimonial.description}</p>
                 <div className="flex items-center mb-4 justify-center">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className="h-5 w-5 text-yellow-500"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                    </svg>
+                    <FaStar key={i} className="h-5 w-5 text-yellow-500" />
                   ))}
                   {[...Array(5 - testimonial.rating)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className="h-5 w-5 text-gray-300"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                    </svg>
+                    <FaStar key={i} className="h-5 w-5 text-gray-300" />
                   ))}
                 </div>
                 <p className="font-semibold text-lg text-gray-800">
                   {testimonial.company}
                 </p>
-                <img
+                <Image
                   src={testimonial.image}
                   alt={testimonial.company}
+                  width={100}
+                  height={50}
                   className="mt-4 h-12 object-contain mx-auto"
                 />
               </div>
@@ -687,6 +699,7 @@ function Page() {
         </div>
       </section>
 
+      {/* Clients Section */}
       <section className="bg-[#F2FBF8]">
         <div className="container mx-auto text-center md:space-y-10 md:p-8 p-10">
           <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#3D3D3D]">
@@ -694,24 +707,25 @@ function Page() {
           </h1>
           <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-8 mb-8 md:p-0 p-4">
             {logos.map((logo, index) => (
-              <div key={index} className="flex justify-center items-center">
-               <a href=""> <Image
+              <div key={index} className="flex justify-center items-center hover:scale-110 transition-transform duration-300">
+                <Image
                   src={logo.src}
-                  alt={logo.alt}
-                  width={120} 
-                  height={60} 
-                  className="object-contain"
-                /></a>
+                  alt={logo.alt || `Company ${index + 1}`}
+                  width={120}
+                  height={60}
+                  className="object-contain grayscale hover:grayscale-0 transition-filter duration-300"
+                />
               </div>
             ))}
           </div>
           <button className="px-6 py-2 bg-customSecondary text-white rounded-full hover:bg-[#070928] transition-colors duration-500 ease-in-out">
-            View All <i class="bi bi-arrow-right-short"></i>
+            View All <IoMdArrowRoundForward className="inline" />
           </button>
         </div>
       </section>
 
-      <section className="md:py-[50px] py-10">
+      {/* Contact Section */}
+      <section className="md:py-[50px] py-10 bg-white">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8 p-10 md:p-12">
           <div className="w-full md:w-1/2 lg:w-2/3">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3D3D3D]">
@@ -719,8 +733,8 @@ function Page() {
             </h1>
             <p className="text-base text-[#3D3D3D] pb-8">
               You can send an email to{" "}
-              <a href="#">
-                <span className="text-customPrimary">info@danphehealth.com</span>
+              <a href="mailto:info@smartcareconnects.com" className="hover:text-customPrimary">
+                <span className="text-customPrimary">info@smartcareconnects.com</span>
               </a>
             </p>
             <form className="space-y-3">
@@ -737,6 +751,7 @@ function Page() {
                     id="firstName"
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     placeholder="First Name"
+                    required
                   />
                 </div>
                 <div>
@@ -751,6 +766,7 @@ function Page() {
                     id="lastName"
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     placeholder="Last Name"
+                    required
                   />
                 </div>
               </div>
@@ -763,10 +779,11 @@ function Page() {
                   Phone Number<span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="tel"
                   id="phoneNumber"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Phone Number"
+                  required
                 />
               </div>
 
@@ -782,6 +799,7 @@ function Page() {
                   id="email"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Email Address"
+                  required
                 />
               </div>
 
@@ -797,6 +815,7 @@ function Page() {
                   rows="4"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Message"
+                  required
                 ></textarea>
               </div>
 
@@ -811,65 +830,69 @@ function Page() {
             </form>
           </div>
 
-          <div className="w-full md:w-1/2 lg:w-1/2">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.6164001962547!2d85.32716410000002!3d27.729127799999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19fba7e5fa51%3A0xc4172146a7cef225!2sDanphe%20Health%20Inc.%20Pvt.%20Ltd.!5e0!3m2!1sen!2ssg!4v1724390089888!5m2!1sen!2ssg"
-              width="100%"
-              height="500"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+          <div className="w-full md:w-1/2 lg:w-1/2 h-full">
+            <div className="relative h-full min-h-[400px] rounded-lg overflow-hidden shadow-xl">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.317136166486!2d85.2849331320681!3d27.708954252240673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1744189372577!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute top-0 left-0 w-full h-full"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
 
-      <section>
-  <div className="container mx-auto md:p-12 p-4">
-    <div className="rounded-2xl flex flex-col md:flex-row justify-between items-center bg-[#F9F9F9] py-10">
-      <div className="w-full md:w-1/4 mb-6 md:mb-0 hidden md:block">
-        <Image
-          src="https://danphehealth.com/frontend/img/doctor.png"
-          alt="img"
-          width={300}
-          height={0}
-          className="object-contain mx-auto"
-        />
-      </div>
+      {/* CTA Section */}
+      <section className="bg-gradient-to-r from-[#F2FBF8] to-[#E0F7F0]">
+        <div className="container mx-auto md:p-12 p-4">
+          <div className="rounded-2xl flex flex-col md:flex-row justify-between items-center bg-[#F9F9F9] py-10 px-6 shadow-lg">
+            <div className="w-full md:w-1/4 mb-6 md:mb-0 hidden md:block">
+              <Image
+                src="/images/doctor-six.avif"
+                alt="Doctor consulting"
+                width={300}
+                height={200}
+                className="object-contain mx-auto rounded-lg"
+              />
+            </div>
 
-      <div className="w-full md:w-2/3 text-start md:text-left p-4">
-        <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold text-[#3D3D3D]">
-          <span className="text-customPrimary">
-            Subscribe for a Transformative Demo
-          </span>
-          <br />
-          of Our Cutting-Edge Solutions!
-        </h1>
-        <p className="text-base text-[#3D3D3D] py-3">
-          Subscribe now for a personalized demo and unlock the future with
-          innovative solutions tailored to enhance efficiency and elevate
-          your overall experience.
-        </p>
+            <div className="w-full md:w-2/3 text-start md:text-left p-4">
+              <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold text-[#3D3D3D]">
+                <span className="text-customPrimary">
+                  Subscribe for a Transformative Demo
+                </span>
+                <br />
+                of Our Cutting-Edge Solutions!
+              </h1>
+              <p className="text-base text-[#3D3D3D] py-3">
+                Subscribe now for a personalized demo and unlock the future with
+                innovative solutions tailored to enhance efficiency and elevate
+                your overall experience.
+              </p>
 
-        <div className="md:flex md:space-y-0 space-y-2 items-center md:border rounded-lg overflow-hidden w-full md:w-96 mx-auto md:mx-0">
-          <input
-            type="email"
-            placeholder="Enter Email"
-            className="flex-grow px-4 py-4 focus:outline-none"
-          />
-          <button className="bg-customSecondary text-white hover:bg-customDark font-semibold px-6 py-3 md:rounded-none rounded-lg transition-colors duration-500 ease-in-out">
-            SUBSCRIBE
-          </button>
+              <div className="md:flex md:space-y-0 space-y-2 items-center md:border rounded-lg overflow-hidden w-full md:w-96 mx-auto md:mx-0">
+                <input
+                  type="email"
+                  placeholder="Enter Email"
+                  className="flex-grow px-4 py-4 focus:outline-none w-full"
+                  required
+                />
+                <button className="bg-customSecondary text-white hover:bg-customDark font-semibold px-6 py-3 md:rounded-none rounded-lg transition-colors duration-500 ease-in-out w-full md:w-auto">
+                  SUBSCRIBE
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+      </section>
     </>
   );
 }
 
 export default Page;
+

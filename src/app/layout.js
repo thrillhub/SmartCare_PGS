@@ -1,33 +1,26 @@
-"use client";
-import React from "react"; // Add this import
+// src/app/layout.js (Server component)
+import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import FloatingButton from "./Components/FloatingButton";
-import { usePathname } from 'next/navigation';
+import ClientLayout from "./ClientLayout"; 
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = {
+  title: "Smart Care Connects",
+  description: "Your Website Description",
+};
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  const noHeaderFooterPaths = [
-    '/patient-login',
-    '/patient-register',
-    '/doctor-login',
-    '/doctor-register',
-    '/doctor-appointment',
-    '/chat-box',
-    '/doctor-chat-box',
-    '/Patient-profile'
-  ];
-  const showHeaderFooter = !noHeaderFooterPaths.includes(pathname);
-
   return (
     <html lang="en">
-      <body className="inter-font">
-        {showHeaderFooter && <Header />}
-        {children}
-        {showHeaderFooter && <FloatingButton />}
-        {showHeaderFooter && <Footer />}
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body className={inter.className}>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

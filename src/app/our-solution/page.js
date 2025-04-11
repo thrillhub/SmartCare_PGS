@@ -1,100 +1,84 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { FaUserInjured, FaProcedures, FaClinicMedical, FaFileInvoiceDollar, FaMicroscope, FaPills, FaBoxes, FaListOl, FaXRay, FaMoneyBillWave, FaUserTie, FaAmbulance, FaVideo, FaShieldAlt } from "react-icons/fa";
 
 function page() {
   const modules = [
     {
       title: "Patient Administration",
-      description:
-        "This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection ...",
-      icon: "https://danphehealth.com/storage/uploads/pCqJyn1pu7uF8Xe01RcdhS8Z7SUXL0H0pTgFaziI.svg", 
+      description: "This system assists patients in scheduling appointments online, as well as registering walk-in patients. It facilitates the collection ...",
+      icon: <FaUserInjured className="text-3xl text-customPrimary" />,
     },
     {
       title: "OPD Management",
-      description:
-        "An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective ...",
-      icon: "https://danphehealth.com/storage/uploads/EpXK5EDyLENjofm1vsFABjwl9l831nRZw44NFfuc.svg",
+      description: "An organized OPD is crucial for managing a large number of patients attended by multiple doctors. The complete cycle of an effective ...",
+      icon: <FaClinicMedical className="text-3xl text-customPrimary" />,
     },
     {
       title: "IPD Management",
-      description:
-        "The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to ...",
-      icon: "https://danphehealth.com/storage/uploads/NZUBZq4tEOd4Y57kbvgsbE2UkZYnJGFQI5jpRdon.svg",
+      description: "The Complete Inpatient Management Module efficiently handles all inpatient functionalities in your hospital, from patient registration to ...",
+      icon: <FaProcedures className="text-3xl text-customPrimary" />,
     },
-
     {
       title: "OT Management",
-      description:
-        "The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient ...",
-      icon: "https://danphehealth.com/storage/uploads/60DLrOSCtJoKjQAjfLtzrLJkmwE2PwYnXSnwdmNj.svg",
+      description: "The Operation Theater module facilitates the scheduling of operation theaters, surgical teams, patient ...",
+      icon: <FaClinicMedical className="text-3xl text-customPrimary" />,
     },
     {
       title: "SSF Management",
-      description:
-        "This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports ...",
-      icon: "https://danphehealth.com/storage/uploads/EpXK5EDyLENjofm1vsFABjwl9l831nRZw44NFfuc.svg",
+      description: "This module aids in managing the Social Security Fund (SSF) insurance scheme in hospitals. It supports ...",
+      icon: <FaFileInvoiceDollar className="text-3xl text-customPrimary" />,
     },
     {
       title: "Pathology Software",
-      description:
-        "The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully ...",
-      icon: "https://danphehealth.com/storage/uploads/Xvqm3QartPuNThCvMEGOaXKlPYTcOgAKAJJbELsw.svg",
+      description: "The Pathology Lab Management module facilitates the definition of laboratory tests, supporting fully ...",
+      icon: <FaMicroscope className="text-3xl text-customPrimary" />,
     },
-
     {
       title: "Pharmacy",
-      description:
-        "The pharmacy module encompasses both central and distributed pharmacies, incorporating several ...",
-      icon: "https://danphehealth.com/storage/uploads/ap8hzm56Nfyn3drN6WloW0nimKuACXPl0ViThHH8.svg", // Replace with actual icon source
+      description: "The pharmacy module encompasses both central and distributed pharmacies, incorporating several ...",
+      icon: <FaPills className="text-3xl text-customPrimary" />,
     },
     {
       title: "Inventory Management",
-      description:
-        "The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other ...",
-      icon: "https://danphehealth.com/storage/uploads/CSdzRoHePc9wwhavblw3rEj0yPSAFqL9bbIiWR2A.svg",
+      description: "The inventory module spans across the entire hospital, encompassing wards, OT, pharmacy, and other ...",
+      icon: <FaBoxes className="text-3xl text-customPrimary" />,
     },
     {
       title: "Queue Management",
-      description:
-        "The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient ...",
-      icon: "https://danphehealth.com/storage/uploads/X58IC6Jo47xTRG1OactLdafrZ7AMXYmNJuaYmjkw.svg",
+      description: "The queue management feature in DANPHE HIMS is utilized to manage patient queues and prioritize patient ...",
+      icon: <FaListOl className="text-3xl text-customPrimary" />,
     },
     {
       title: "Radiology Management",
-      description:
-        "The radiology module allows you to choose from multiple tests and promptly make the results available ...",
-      icon: "https://danphehealth.com/storage/uploads/6P5EHyHrrpLzE0sYzOILFcxmgaBOt44Oer2lTZxB.svg",
+      description: "The radiology module allows you to choose from multiple tests and promptly make the results available ...",
+      icon: <FaXRay className="text-3xl text-customPrimary" />,
     },
     {
       title: "Finance And Account Management",
-      description:
-        "The financial module oversees and efficiently manages the entire monetary flow, ensuring transparency ...",
-      icon: "https://danphehealth.com/storage/uploads/QcSA83qF2yOaNCctXIi6bYH1KAxQzblXgfwlyFB5.svg",
+      description: "The financial module oversees and efficiently manages the entire monetary flow, ensuring transparency ...",
+      icon: <FaMoneyBillWave className="text-3xl text-customPrimary" />,
     },
     {
       title: "HR & Payroll Management",
-      description:
-        "The HR & Payroll Management module encompasses routine activities of HRD and tasks related to existing ...",
-      icon: "https://danphehealth.com/storage/uploads/v52PDl4opz8tneJKc78GElK6VeMGtmfUTLqhMgAu.svg",
+      description: "The HR & Payroll Management module encompasses routine activities of HRD and tasks related to existing ...",
+      icon: <FaUserTie className="text-3xl text-customPrimary" />,
     },
     {
       title: "Emergency Management",
-      description:
-        "The Emergency module assists in registering and managing emergency cases and patients. It tracks the triag ...",
-      icon: "https://danphehealth.com/storage/uploads/nv7FNYvHSKswmGzn3R663cgCQ6j9wlvjZ1HDgMKi.svg",
+      description: "The Emergency module assists in registering and managing emergency cases and patients. It tracks the triag ...",
+      icon: <FaAmbulance className="text-3xl text-customPrimary" />,
     },
     {
       title: "Telehealth Application",
-      description:
-        "Telehealth applications enable healthcare providers to deliver medical services remotely to patients via video conferencing or other ...",
-      icon: "https://danphehealth.com/storage/uploads/EpXK5EDyLENjofm1vsFABjwl9l831nRZw44NFfuc.svg",
+      description: "Telehealth applications enable healthcare providers to deliver medical services remotely to patients via video conferencing or other ...",
+      icon: <FaVideo className="text-3xl text-customPrimary" />,
     },
     {
       title: "Health Insurance",
-      description:
-        "DANPHE incorporates the GoVN-HIB module, seamlessly managing insurance processes to settle patient bills covered under insurance ...",
-      icon: "https://danphehealth.com/storage/uploads/NZUBZq4tEOd4Y57kbvgsbE2UkZYnJGFQI5jpRdon.svg",
+      description: "SmartCare Connects incorporates the GoVN-HIB module, seamlessly managing insurance processes to settle patient bills covered under insurance ...",
+      icon: <FaShieldAlt className="text-3xl text-customPrimary" />,
     },
   ];
 
@@ -128,7 +112,6 @@ function page() {
     { feature: "Managerial Reporting with DASHBOARD", basic: true, advance: false },
   ];
 
-
     const featuresData_two = [
     { feature: "Government Health Insurance Integration with Real-time Claim Management", basic: true, advance: false },
     { feature: "Social Security Fund (SSF) Integration", basic: true, advance: false },
@@ -142,7 +125,7 @@ function page() {
   
   const featuresData_four = [
   { feature: "LAB Machine Interfacing (Bi-Directional)", basic: true, advance: false },
-    { feature: "PACS Integration with DANPHE HMIS", basic: true, advance: false },
+    { feature: "PACS Integration with Smart HMIS", basic: true, advance: false },
   ];
 
   return (
@@ -173,8 +156,8 @@ function page() {
             <div className="hidden md:block">
               <div className="relative">
                 <Image
-                  src="https://danphehealth.com/frontend/img/Group%204724.png"
-                  alt="DANPHE Dashboard"
+                  src="/images/dash.png"
+                  alt="Smart Dashboard"
                   width={600}
                   height={0}
                   className="rounded-lg"
@@ -204,14 +187,8 @@ function page() {
               >
                 <div>
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 mr-4">
-                      {/* Use Image component if the icon is an image */}
-                      <Image
-                        src={module.icon}
-                        alt={module.title}
-                        width={48}
-                        height={48}
-                      />
+                    <div className="w-12 h-12 mr-4 flex items-center justify-center">
+                      {module.icon}
                     </div>
                     <h3 className="text-xl font-semibold">{module.title}</h3>
                   </div>
@@ -221,7 +198,7 @@ function page() {
                   <a
                     href="#"
                     className="text-customPrimary hover:text-white hover:bg-customSecondary border-2
-              hover:border-transparent border-customPrimary rounded-full flex items-center justify-center w-9 h-9 "
+                    hover:border-transparent border-customPrimary rounded-full flex items-center justify-center w-9 h-9"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +345,7 @@ function page() {
     <div className="rounded-2xl flex flex-col md:flex-row justify-between items-center bg-[#F2FBF8] py-10">
       <div className="w-full md:w-1/4 mb-6 md:mb-0 hidden md:block">
         <Image
-          src="https://danphehealth.com/frontend/img/doctor.png"
+          src="/images/doctor-six.avif"
           alt="img"
           width={300}
           height={0}
@@ -406,9 +383,10 @@ function page() {
 </section>
 
 
-
     </>
   );
 }
 
 export default page;
+
+

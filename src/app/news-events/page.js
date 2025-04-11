@@ -10,16 +10,16 @@ function Page() {
       date: '2024-01-03',
       author: 'Digwatch',
       description: 'In the swiftly evolving landscape of the artificial intelligence technology...',
-      image: 'https://danphehealth.com/storage/uploads/qJC8UWbueNgrVxOUzwXyz4vAXQi9zxmNFD2dBWU9.png',
+      image: '/images/doctor-ai.jpg',
       getLink: () => '/news/2023-recap-of-ai-developments',
     },
     {
       id: 2,
       title: 'Navigating the Healthcare Landscape: A Comprehensive Guide to HIPAA Compliance in Hospitals',
       date: '2024-01-08',
-      author: 'Danphe Health',
+      author: 'SmartCare Connects',
       description: 'In the ever-evolving realm of healthcare, safeguarding patient information...',
-      image: 'https://danphehealth.com/storage/uploads/UCplaL4d4WzJAv9ZxgqTOUIpvHGjL2ZPj6jOnDdf.jpg',
+      image: '/images/doctor-hpp.webp',
       getLink: () => '/news/hipaa-compliance-guide',
     },
     {
@@ -28,7 +28,7 @@ function Page() {
       date: '2023-02-17',
       author: 'Eduhealth System',
       description: 'There is a growing interest in EHRs around the world. Technology and innovations are changing the health industry, governments and organizations are focusing on providing better health services to the public.',
-      image: 'https://danphehealth.com/storage/uploads/h2HDNsv5bp2mI8WG9xv7spFXiQFhIWlr2hUMHLG5.jpg',
+      image: '/images/doctor-elec.jpg',
       getLink: () => '/news/hipaa-compliance-guide',
     },
     {
@@ -37,7 +37,7 @@ function Page() {
       date: '2023-05-04',
       author: 'Regis College',
       description: 'In 2009, only 12% of hospitals used EHRs, according to the Office of the National Coordinator for Health Information Technology. By 2021 — thanks in part to $27 billion in financial incentives from Congress — EHRs were almost universal, with 96% of hospitals adopting them.',
-      image: 'https://danphehealth.com/storage/uploads/an0lprVHccGkqUYrQk6A3spAlUjZWuVMB7E1gUo0.jpg',
+      image: '/images/doctor-nur.jpg',
       getLink: () => '/news/hipaa-compliance-guide',
     },
     {
@@ -46,7 +46,7 @@ function Page() {
       date: '2024-01-03',
       author: 'स्वास्थ्यखबर',
       description: 'स्वास्थ्य तथा जनसंख्या मन्त्रालयले कोभिड-१९ को नयाँ सब-भेरियन्ट जेएन.१ को  जोखिम बढेको भन्दै सतर्कता अपनाउन आग्रह गरेको छ। मन्त्रालयले बुधबार विज्ञप्ति जारी गर्दै नेपालमा अहिलेसम्म यो सब-भेरियन्ट पुष्टि नभएपनि छिमेकी देशहरुमा संक्रमण बढिरहेकाले सतर्कता अपनाउन ध्यानाकर्षण गराएको हो।',
-      image: 'https://danphehealth.com/storage/uploads/TxGTJmHp4LKQTw9eJLomffxWju2Ra9AC37yjrZMu.jpg',
+      image: '/images/doctor-nep.jpeg',
       getLink: () => '/news/hipaa-compliance-guide',
     },
   ];      
@@ -105,7 +105,7 @@ function Page() {
         <span className="bg-gray-200 text-gray-800 text-sm px-2 py-1 rounded-lg">0</span>
       </li>
       <li className="flex justify-between items-center mb-2">
-        <span>General Updates on SmartCare Connect</span>
+        <span>General Updates on SmartCare Connects</span>
         <span className="bg-gray-200 text-gray-800 text-sm px-2 py-1 rounded-lg">0</span>
       </li>
       <li className="flex justify-between items-center">
@@ -128,7 +128,7 @@ function Page() {
             <p className="text-base text-[#3D3D3D] pb-8">
               You can send an email to{" "}
               <a href="#">
-                <span className="text-customPrimary">info@danphehealth.com</span>
+                <span className="text-customPrimary">info@smartcareconnects.com</span>
               </a>
             </p>
             <form className="space-y-3">
@@ -156,8 +156,7 @@ function Page() {
                   </label>
                   <input
                     type="text"
-                    id="lastName"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    id="lastName"className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     placeholder="Last Name"
                   />
                 </div>
@@ -238,7 +237,7 @@ function Page() {
     <div className="rounded-2xl flex flex-col md:flex-row justify-between items-center bg-[#F9F9F9] py-10">
       <div className="w-full md:w-1/4 mb-6 md:mb-0 hidden md:block">
         <Image
-          src="https://danphehealth.com/frontend/img/doctor.png"
+          src="/images/doctor-six.avif"
           alt="img"
           width={300}
           height={0}

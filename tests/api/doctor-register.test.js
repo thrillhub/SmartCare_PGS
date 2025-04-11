@@ -4,23 +4,23 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../src/lib/firebaseConfig";
 import bcrypt from "bcryptjs";
 
-// Mock dependencies
+
 jest.mock("../../src/lib/firebaseConfig", () => ({
-  db: jest.fn(), // Mock db object
+  db: jest.fn(), 
 }));
 
 jest.mock("firebase/firestore", () => ({
-  collection: jest.fn().mockReturnValue({}), // Mock collection reference
-  doc: jest.fn().mockReturnValue({}), // Mock document reference
-  setDoc: jest.fn().mockResolvedValue(true), // Mock setDoc to resolve successfully
+  collection: jest.fn().mockReturnValue({}), 
+  doc: jest.fn().mockReturnValue({}), 
+  setDoc: jest.fn().mockResolvedValue(true), 
 }));
 
 jest.mock("bcryptjs", () => ({
-  hash: jest.fn().mockResolvedValue("hashedPassword"), // Mock password hashing
+  hash: jest.fn().mockResolvedValue("hashedPassword"), 
 }));
 
 jest.mock("uuid", () => ({
-  v4: jest.fn().mockReturnValue("test-uuid"), // Mock UUID generation
+  v4: jest.fn().mockReturnValue("test-uuid"), 
 }));
 
 describe("POST /api/doctor-register", () => {

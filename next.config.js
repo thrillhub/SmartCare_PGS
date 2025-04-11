@@ -13,6 +13,6 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ['danphehealth.com'], 
+    domains: ['images.pexels.com'], 
   },
 };

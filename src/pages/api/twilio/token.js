@@ -1,12 +1,10 @@
 import twilio from 'twilio';
-
 export default async function handler(req, res) {
   const { identity, appointmentId } = req.query;
 
   if (!identity || !appointmentId) {
     return res.status(400).json({ error: "Identity and appointmentId are required" });
   }
-
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const apiKey = process.env.TWILIO_API_KEY;
   const apiSecret = process.env.TWILIO_API_SECRET;

@@ -8,7 +8,7 @@ function Page() {
       <section
         className="bg-cover bg-center flex items-center justify-center"
         style={{
-          backgroundImage: "url('https://danphehealth.com/frontend/img/coming-soon.jpg')",
+          backgroundImage: "url('/images/doctor-background.avif')",
           height: "100vh", 
         }}
       >

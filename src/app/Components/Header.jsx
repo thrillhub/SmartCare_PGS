@@ -47,7 +47,7 @@ function Header() {
               <li>
                 <a href="#" className="flex items-center">
                   <i className="bi bi-envelope px-2"></i>
-                  info@danphehealth.com
+                  info@smartcareconnects.com
                 </a>
               </li>
               <li>

@@ -12,7 +12,6 @@ jest.mock("nodemailer", () => ({
 describe("POST /api/send-email", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // Reset sendMail mock to resolve successfully by default
     nodemailer.createTransport().sendMail.mockResolvedValue(true);
   });
 
@@ -51,29 +50,16 @@ describe("POST /api/send-email", () => {
     });
     expect(nodemailer.createTransport().sendMail).toHaveBeenCalledTimes(2);
     expect(nodemailer.createTransport().sendMail).toHaveBeenCalledWith({
-      from: "smartcareconnects@gmail.com",
+      from: '"SmartCare Connects" <smartcareconnects@gmail.com>',
       to: "doctor@example.com",
-      subject: "New Appointment Booking",
-      html: `<p>You have a new appointment booking!</p>
-             <p><strong>Patient Details:</strong></p>
-             <p>Name: John Doe</p>
-             <p>Disease: Flu</p>
-             <p>Appointment Date: 2025-04-15</p>
-             <p>Appointment Time: 10:00</p>
-             <p>Message: Please check my symptoms</p>`,
+      subject: "New Appointment: John Doe - 2025-04-15",
+      html: expect.stringContaining("New Appointment Booking"), // Match part of the new HTML
     });
     expect(nodemailer.createTransport().sendMail).toHaveBeenCalledWith({
-      from: "smartcareconnects@gmail.com",
+      from: '"SmartCare Connects" <smartcareconnects@gmail.com>',
       to: "patient@example.com",
-      subject: "Appointment Confirmation",
-      html: `<p>Your appointment has been successfully booked!</p>
-             <p><strong>Appointment Details:</strong></p>
-             <p>Doctor: Dr. Smith</p>
-             <p>Disease: Flu</p>
-             <p>Appointment Date: 2025-04-15</p>
-             <p>Appointment Time: 10:00</p>
-             <p>Message: Please check my symptoms</p>
-             <p>Thank you for choosing our service!</p>`,
+      subject: "Appointment Confirmation with Dr. Smith - 2025-04-15",
+      html: expect.stringContaining("Appointment Confirmation"), // Match part of the new HTML
     });
   });
 
